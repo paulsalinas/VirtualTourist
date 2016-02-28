@@ -29,12 +29,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
     
     func handleLongTouch(recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == UIGestureRecognizerState.Began {
-        
-            let coordinates = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
-            print(coordinates)
             
             let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinates
+            annotation.coordinate = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
+            
+            let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongTouch:")
+            longPressGestureRecognizer.minimumPressDuration = 1
+            longPressGestureRecognizer.delegate = self
             
             mapView.addAnnotation(annotation)
         }
@@ -42,46 +43,26 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
     
     // MARK: - Map Delegate Functions
     
-    // taken from stack answer: http://stackoverflow.com/a/34967157
-    func mapView(mapView: MKMapView, didAddAnnotationViews views: [MKAnnotationView]) {
-        var i = -1;
-        for view in views {
-            i++;
-            if view.annotation is MKUserLocation {
-                continue;
-            }
-            
-            // Check if current annotation is inside visible map rect, else go to next one
-            let point:MKMapPoint  =  MKMapPointForCoordinate(view.annotation!.coordinate);
-            if (!MKMapRectContainsPoint(self.mapView.visibleMapRect, point)) {
-                continue;
-            }
-            
-            let endFrame:CGRect = view.frame;
-            
-            // Move annotation out of view
-            view.frame = CGRectMake(view.frame.origin.x, view.frame.origin.y - self.view.frame.size.height, view.frame.size.width, view.frame.size.height);
-            
-            // Animate drop
-            let delay = 0.03 * Double(i)
-            UIView.animateWithDuration(0.5, delay: delay, options: UIViewAnimationOptions.CurveEaseIn, animations:{() in
-                view.frame = endFrame
-                
-                // Animate squash
-                }, completion:{(Bool) in
-                    UIView.animateWithDuration(0.05, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations:{() in
-                        view.transform = CGAffineTransformMakeScale(1.0, 0.6)
-                        
-                        }, completion: {(Bool) in
-                            UIView.animateWithDuration(0.3, delay: 0.0, options: UIViewAnimationOptions.CurveEaseInOut, animations:{() in
-                                view.transform = CGAffineTransformIdentity
-                                }, completion: nil)
-                    })
-                    
-            })
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = false
+            pinView!.pinTintColor = UIColor.redColor()
+            pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+            pinView!.animatesDrop = true
+            pinView!.draggable = true
+        }
+        else {
+            pinView!.annotation = annotation
         }
         
+        return pinView
     }
+    
 
 }
 
