@@ -21,8 +21,22 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
         longPressGestureRecognizer.minimumPressDuration = 1
         longPressGestureRecognizer.delegate = self
         mapView.addGestureRecognizer(longPressGestureRecognizer)
+        mapView.showsCompass = true
         
         mapView.delegate = self
+        
+        if NSUserDefaults.standardUserDefaults().boolForKey("savedAppState") {
+            let latitudeCenter = NSUserDefaults.standardUserDefaults().doubleForKey("latitudeCenter")
+            let longitudeCenter = NSUserDefaults.standardUserDefaults().doubleForKey("longitudeCenter")
+            let longitudeSpan = NSUserDefaults.standardUserDefaults().doubleForKey("longitudeSpan")
+            let latitudeSpan = NSUserDefaults.standardUserDefaults().doubleForKey("latitudeSpan")
+
+            
+            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter), span: MKCoordinateSpan(latitudeDelta: latitudeSpan, longitudeDelta: longitudeSpan))
+            print(region)
+            mapView.region = region
+        }
+
     }
     
     // MARK: - Gesture Handler Functions
@@ -38,7 +52,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
     }
     
     func handleSingeTap(recognizer: UITapGestureRecognizer) {
-        print("single tap")
+        let annotation = (recognizer.view as! MKPinAnnotationView).annotation!
+        print(annotation.coordinate)
     }
     
     
@@ -71,6 +86,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
     }
     
 
+    func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        //print("region change")
+        let region = mapView.region
+        //print(region)
+        NSUserDefaults.standardUserDefaults().setDouble(region.center.latitude, forKey: "region")
+        NSUserDefaults.standardUserDefaults().setDouble(region.center.longitude, forKey: "longitudeCenter")
+        
+        NSUserDefaults.standardUserDefaults().setDouble(region.span.latitudeDelta, forKey: "latitudeSpan")
+        NSUserDefaults.standardUserDefaults().setDouble(region.span.longitudeDelta, forKey: "longitudeSpan")
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: "savedAppState")
+
+    }
     
 
 }
