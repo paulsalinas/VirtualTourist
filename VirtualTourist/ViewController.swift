@@ -56,18 +56,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
             pinView!.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             pinView!.animatesDrop = true
             pinView!.draggable = true
+            
+            let longPressGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleSingeTap:")
+            longPressGestureRecognizer.numberOfTapsRequired = 1
+            longPressGestureRecognizer.delegate = self
+            
+            pinView!.addGestureRecognizer(longPressGestureRecognizer)
         }
         else {
             pinView!.annotation = annotation
         }
-        
-        
-        let longPressGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleSingeTap:")
-        longPressGestureRecognizer.numberOfTapsRequired = 1
-        longPressGestureRecognizer.delegate = self
-        
-        pinView?.addGestureRecognizer(longPressGestureRecognizer)
-        
         
         return pinView
     }
