@@ -33,13 +33,14 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
             let annotation = MKPointAnnotation()
             annotation.coordinate = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
             
-            let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongTouch:")
-            longPressGestureRecognizer.minimumPressDuration = 1
-            longPressGestureRecognizer.delegate = self
-            
             mapView.addAnnotation(annotation)
         }
     }
+    
+    func handleSingeTap(recognizer: UITapGestureRecognizer) {
+        print("single tap")
+    }
+    
     
     // MARK: - Map Delegate Functions
     
@@ -60,8 +61,18 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
             pinView!.annotation = annotation
         }
         
+        
+        let longPressGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleSingeTap:")
+        longPressGestureRecognizer.numberOfTapsRequired = 1
+        longPressGestureRecognizer.delegate = self
+        
+        pinView?.addGestureRecognizer(longPressGestureRecognizer)
+        
+        
         return pinView
     }
+    
+
     
 
 }
