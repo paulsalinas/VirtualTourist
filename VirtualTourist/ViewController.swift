@@ -31,11 +31,15 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
             let longitudeSpan = NSUserDefaults.standardUserDefaults().doubleForKey("longitudeSpan")
             let latitudeSpan = NSUserDefaults.standardUserDefaults().doubleForKey("latitudeSpan")
             
-            let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter), span: MKCoordinateSpan(latitudeDelta: latitudeSpan, longitudeDelta: longitudeSpan))
-            let camera = MKMapCamera(lookingAtCenterCoordinate: CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter), fromDistance: NSUserDefaults.standardUserDefaults().doubleForKey("altitude"),
-                pitch: NSUserDefaults.standardUserDefaults().objectForKey("pitch") as! CGFloat, heading: NSUserDefaults.standardUserDefaults().doubleForKey("heading"))
-            mapView.region = region
-            mapView.setCamera(camera, animated: false)
+            let centerCoordinate =  CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter)
+            let span = MKCoordinateSpan(latitudeDelta: latitudeSpan, longitudeDelta: longitudeSpan)
+            
+            let altitude = NSUserDefaults.standardUserDefaults().doubleForKey("altitude")
+            let pitch = NSUserDefaults.standardUserDefaults().objectForKey("pitch") as! CGFloat
+            let heading = NSUserDefaults.standardUserDefaults().doubleForKey("heading")
+            
+            mapView.region = MKCoordinateRegion(center: centerCoordinate, span: span)
+            mapView.setCamera(MKMapCamera(lookingAtCenterCoordinate: centerCoordinate, fromDistance: altitude, pitch: pitch, heading: heading), animated: false)
         }
 
     }
@@ -88,9 +92,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
     
 
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
-        //print("region change")
+
         let region = mapView.region
-        //print(region)
+
         NSUserDefaults.standardUserDefaults().setDouble(region.center.latitude, forKey: "latitudeCenter")
         NSUserDefaults.standardUserDefaults().setDouble(region.center.longitude, forKey: "longitudeCenter")
         
