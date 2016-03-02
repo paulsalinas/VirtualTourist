@@ -30,11 +30,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
             let longitudeCenter = NSUserDefaults.standardUserDefaults().doubleForKey("longitudeCenter")
             let longitudeSpan = NSUserDefaults.standardUserDefaults().doubleForKey("longitudeSpan")
             let latitudeSpan = NSUserDefaults.standardUserDefaults().doubleForKey("latitudeSpan")
-
             
             let region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter), span: MKCoordinateSpan(latitudeDelta: latitudeSpan, longitudeDelta: longitudeSpan))
-            print(region)
+            let camera = MKMapCamera(lookingAtCenterCoordinate: CLLocationCoordinate2D(latitude: latitudeCenter, longitude: longitudeCenter), fromDistance: NSUserDefaults.standardUserDefaults().doubleForKey("altitude"),
+                pitch: NSUserDefaults.standardUserDefaults().objectForKey("pitch") as! CGFloat, heading: NSUserDefaults.standardUserDefaults().doubleForKey("heading"))
             mapView.region = region
+            mapView.setCamera(camera, animated: false)
         }
 
     }
@@ -90,12 +91,16 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
         //print("region change")
         let region = mapView.region
         //print(region)
-        NSUserDefaults.standardUserDefaults().setDouble(region.center.latitude, forKey: "region")
+        NSUserDefaults.standardUserDefaults().setDouble(region.center.latitude, forKey: "latitudeCenter")
         NSUserDefaults.standardUserDefaults().setDouble(region.center.longitude, forKey: "longitudeCenter")
         
         NSUserDefaults.standardUserDefaults().setDouble(region.span.latitudeDelta, forKey: "latitudeSpan")
         NSUserDefaults.standardUserDefaults().setDouble(region.span.longitudeDelta, forKey: "longitudeSpan")
         NSUserDefaults.standardUserDefaults().setBool(true, forKey: "savedAppState")
+        
+        NSUserDefaults.standardUserDefaults().setDouble(mapView.camera.altitude, forKey: "altitude")
+        NSUserDefaults.standardUserDefaults().setObject(mapView.camera.pitch, forKey: "pitch")
+        NSUserDefaults.standardUserDefaults().setDouble(mapView.camera.heading, forKey: "heading")
 
     }
     
