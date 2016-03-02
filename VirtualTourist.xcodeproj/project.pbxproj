@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C4128D41C869260006F4ECD /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4128D31C869260006F4ECD /* CoreDataStackManager.swift */; };
 		3C5053031C82679600276B26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5053021C82679600276B26 /* AppDelegate.swift */; };
 		3C5053051C82679600276B26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5053041C82679600276B26 /* ViewController.swift */; };
 		3C5053081C82679600276B26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C5053061C82679600276B26 /* Main.storyboard */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3C4128D31C869260006F4ECD /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		3C5052FF1C82679600276B26 /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C5053021C82679600276B26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3C5053041C82679600276B26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				3C5053091C82679600276B26 /* Assets.xcassets */,
 				3C50530B1C82679600276B26 /* LaunchScreen.storyboard */,
 				3C50530E1C82679600276B26 /* Info.plist */,
+				3C4128D31C869260006F4ECD /* CoreDataStackManager.swift */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 			files = (
 				3C5053051C82679600276B26 /* ViewController.swift in Sources */,
 				3C5053031C82679600276B26 /* AppDelegate.swift in Sources */,
+				3C4128D41C869260006F4ECD /* CoreDataStackManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -482,6 +486,7 @@
 				3C5053291C82679600276B26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C50532A1C82679600276B26 /* Build configuration list for PBXNativeTarget "VirtualTouristTests" */ = {
 			isa = XCConfigurationList;
@@ -490,6 +495,7 @@
 				3C50532C1C82679600276B26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C50532D1C82679600276B26 /* Build configuration list for PBXNativeTarget "VirtualTouristUITests" */ = {
 			isa = XCConfigurationList;
@@ -498,6 +504,7 @@
 				3C50532F1C82679600276B26 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
