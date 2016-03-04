@@ -124,13 +124,13 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
             
             let savedRegion = MKCoordinateRegion(center: center, span: span)
             
-            print("lat: \(latitude), lon: \(longitude), latD: \(latitudeDelta), lonD: \(longitudeDelta)")
-            
             mapView.setRegion(savedRegion, animated: animated)
             
             let altitude = regionDictionary["altitude"] as! CLLocationDistance
             let pitch = regionDictionary["pitch"] as! CGFloat
             let heading = regionDictionary["heading"] as! CLLocationDirection
+            
+            print("lat: \(latitude), lon: \(longitude), latD: \(latitudeDelta), lonD: \(longitudeDelta), alt: \(altitude), pitch:\(pitch), heading:\(heading)")
             
             let savedCamera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitude, pitch: pitch, heading: heading)
             mapView.setCamera(savedCamera, animated: animated)
