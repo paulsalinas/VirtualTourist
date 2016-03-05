@@ -68,6 +68,19 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
         CoreDataStackManager.sharedInstance().saveContext()
     }
     
+    func fetchPin(longitude longitude: Double, latitude: Double) -> Pin? {
+        // Create the Fetch Request
+        let fetchRequest = NSFetchRequest(entityName: "Pin")
+        fetchRequest.predicate = NSPredicate(format: "longitude == %@ AND latitude == %@", longitude as NSNumber, latitude as NSNumber)
+        
+        // Execute the Fetch Request
+        do {
+            return try sharedContext.executeFetchRequest(fetchRequest).first as! Pin?
+        } catch _ {
+            return nil
+        }
+    }
+    
 
     // MARK: - Gesture Handler Functions
     
@@ -87,6 +100,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
     
     func handleSingeTap(recognizer: UITapGestureRecognizer) {
         let annotation = (recognizer.view as! MKPinAnnotationView).annotation!
+        let pin = fetchPin(longitude: annotation.coordinate.longitude, latitude: annotation.coordinate.latitude)
+        print("latitude \(pin!.latitude)  longitude\(pin!.longitude)")
+        //print(fetchAllPins().filter {$0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude})
         print(annotation.coordinate)
     }
     
