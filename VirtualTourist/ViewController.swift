@@ -8,6 +8,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
@@ -26,15 +27,59 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
         mapView.delegate = self
         
         restoreMapState(false)
+        
+        addPinsToMap(fetchAllPins())
     }
     
+    // add array of pins to the map view
+    func addPinsToMap(pins: [Pin]) {
+        let annotations = pins.map { pin -> MKPointAnnotation in
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude as Double, longitude: pin.longitude as Double)
+            return annotation
+        }
+        
+        annotations.forEach { a in
+            mapView.addAnnotation(a)
+        }
+    }
+
+    
+    // MARK: - Core Data Convenience
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    func fetchAllPins() -> [Pin] {
+        
+        // Create the Fetch Request
+        let fetchRequest = NSFetchRequest(entityName: "Pin")
+        
+        // Execute the Fetch Request
+        do {
+            return try sharedContext.executeFetchRequest(fetchRequest) as! [Pin]
+        } catch _ {
+            return [Pin]()
+        }
+    }
+    
+    func saveContext() {
+        CoreDataStackManager.sharedInstance().saveContext()
+    }
+    
+
     // MARK: - Gesture Handler Functions
     
     func handleLongTouch(recognizer: UILongPressGestureRecognizer) {
         if recognizer.state == UIGestureRecognizerState.Began {
             
             let annotation = MKPointAnnotation()
-            annotation.coordinate = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
+            let coordinate = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
+            _ = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
+            saveContext()
+            
+            annotation.coordinate = coordinate
             
             mapView.addAnnotation(annotation)
         }
