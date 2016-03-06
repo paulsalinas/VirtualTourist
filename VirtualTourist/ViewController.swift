@@ -10,6 +10,7 @@ import UIKit
 import MapKit
 import CoreData
 
+
 class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
@@ -29,6 +30,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
         restoreMapState(false)
         
         addPinsToMap(fetchAllPins())
+    
     }
     
     // add array of pins to the map view
@@ -68,10 +70,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
         CoreDataStackManager.sharedInstance().saveContext()
     }
     
-    func fetchPin(longitude longitude: Double, latitude: Double) -> Pin? {
+    func fetchPin(longitude longitude: NSNumber, latitude: NSNumber) -> Pin? {
         // Create the Fetch Request
         let fetchRequest = NSFetchRequest(entityName: "Pin")
-        fetchRequest.predicate = NSPredicate(format: "longitude == %@ AND latitude == %@", longitude as NSNumber, latitude as NSNumber)
+        fetchRequest.predicate = NSPredicate(format: "longitude == %@ AND latitude == %@", longitude, latitude)
         
         // Execute the Fetch Request
         do {
@@ -101,9 +103,8 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
     func handleSingeTap(recognizer: UITapGestureRecognizer) {
         let annotation = (recognizer.view as! MKPinAnnotationView).annotation!
         let pin = fetchPin(longitude: annotation.coordinate.longitude, latitude: annotation.coordinate.latitude)
-        print("latitude \(pin!.latitude)  longitude\(pin!.longitude)")
-        //print(fetchAllPins().filter {$0.latitude == annotation.coordinate.latitude && $0.longitude == annotation.coordinate.longitude})
-        print(annotation.coordinate)
+        print("Double latitude \(pin!.latitude as Double)  longitude\(pin!.longitude as Double)")
+        
     }
     
     // MARK: - Map Delegate Functions
@@ -137,6 +138,24 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
 
     func mapView(mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         saveMapState()
+    }
+    
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, didChangeDragState newState: MKAnnotationViewDragState, fromOldState oldState: MKAnnotationViewDragState) {
+        
+        if (oldState == MKAnnotationViewDragState.None && newState == MKAnnotationViewDragState.Starting) {
+            
+            // delete the annotation view
+            let coordinate = view.annotation!.coordinate
+            let pin = fetchPin(longitude: coordinate.longitude , latitude: coordinate.latitude)!
+            sharedContext.deleteObject(pin)
+            saveContext()
+        } else if (newState == MKAnnotationViewDragState.Ending && newState != MKAnnotationViewDragState.Canceling) {
+            
+            // add the annotation view
+            let coordinate = view.annotation!.coordinate
+            _ = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
+            saveContext()
+        }
     }
     
     // MARK: - Save the zoom level helpers

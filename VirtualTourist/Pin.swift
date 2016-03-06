@@ -36,7 +36,7 @@ class Pin : NSManagedObject {
     }
     
     
-    init(longitude: Double, latitude: Double, context: NSManagedObjectContext) {
+    init(longitude: NSNumber, latitude: NSNumber, context: NSManagedObjectContext) {
         
         // Core Data
         let entity =  NSEntityDescription.entityForName("Pin", inManagedObjectContext: context)!
