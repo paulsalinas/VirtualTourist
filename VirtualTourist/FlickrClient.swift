@@ -8,6 +8,7 @@
 
 import Foundation
 import PromiseKit
+import SwiftyJSON
 
 
 class FlickrClient {
@@ -37,18 +38,16 @@ class FlickrClient {
             "nojsoncallback": NO_JSON_CALLBACK
         ]
         
-        let urlString = BASE_URL //+ escapedParameters(methodArguments)
+        let urlString = BASE_URL
         
         firstly {
             NSURLSession.POST(urlString, formData: methodArguments)
         }.then { data in
-            /* Parse the data! */
-            let parsedResult: AnyObject!
-            do {
-                parsedResult = try NSJSONSerialization.JSONObjectWithData(data, options: .AllowFragments)
-            } 
-            
-            print(parsedResult)
+            let json = JSON(data: data)
+            print(json)
+            let photos = json["photos"]["photo"].arrayValue
+            let urls = photos.map { $0["url_m"] }
+            print(urls)
             return AnyPromise(bound: Promise<NSData>(data))
         }.error { error in
             print("error \(error)")

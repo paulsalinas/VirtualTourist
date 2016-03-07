@@ -25,6 +25,7 @@
 		3C75FBC41C8CE85600F9A1AC /* NSObject+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBB91C8CE85600F9A1AC /* NSObject+Promise.swift */; };
 		3C75FBC91C8CE85600F9A1AC /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBC01C8CE85600F9A1AC /* NSURLSession+Promise.swift */; };
 		3C75FBCB1C8CFEBA00F9A1AC /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBCA1C8CFEBA00F9A1AC /* FlickrClient.swift */; };
+		3C75FBCD1C8D279B00F9A1AC /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C75FBCC1C8D279B00F9A1AC /* SwiftyJSON.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +71,7 @@
 		3C75FBB91C8CE85600F9A1AC /* NSObject+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSObject+Promise.swift"; path = "VirtualTourist/PromiseKit/Categories/Foundation/NSObject+Promise.swift"; sourceTree = "<group>"; };
 		3C75FBC01C8CE85600F9A1AC /* NSURLSession+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSURLSession+Promise.swift"; path = "VirtualTourist/PromiseKit/Categories/Foundation/NSURLSession+Promise.swift"; sourceTree = "<group>"; };
 		3C75FBCA1C8CFEBA00F9A1AC /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
+		3C75FBCC1C8D279B00F9A1AC /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C75FBCD1C8D279B00F9A1AC /* SwiftyJSON.framework in Frameworks */,
 				3C75FBAF1C8CE52C00F9A1AC /* OMGHTTPURLRQ.framework in Frameworks */,
 				3C75FBB01C8CE52C00F9A1AC /* PromiseKit.framework in Frameworks */,
 			);
@@ -168,6 +171,7 @@
 			children = (
 				3C75FBB31C8CE82200F9A1AC /* Categories */,
 				3C75FBAD1C8CE52C00F9A1AC /* OMGHTTPURLRQ.framework */,
+				3C75FBCC1C8D279B00F9A1AC /* SwiftyJSON.framework */,
 				3C75FBAE1C8CE52C00F9A1AC /* PromiseKit.framework */,
 			);
 			name = lib;
@@ -330,6 +334,7 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/OMGHTTPURLRQ.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
 			);
 			outputPaths = (
 			);
