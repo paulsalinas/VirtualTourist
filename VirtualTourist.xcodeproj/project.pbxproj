@@ -17,6 +17,14 @@
 		3C50530D1C82679600276B26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C50530B1C82679600276B26 /* LaunchScreen.storyboard */; };
 		3C5053181C82679600276B26 /* VirtualTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5053171C82679600276B26 /* VirtualTouristTests.swift */; };
 		3C5053231C82679600276B26 /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5053221C82679600276B26 /* VirtualTouristUITests.swift */; };
+		3C75FBAF1C8CE52C00F9A1AC /* OMGHTTPURLRQ.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C75FBAD1C8CE52C00F9A1AC /* OMGHTTPURLRQ.framework */; };
+		3C75FBB01C8CE52C00F9A1AC /* PromiseKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C75FBAE1C8CE52C00F9A1AC /* PromiseKit.framework */; };
+		3C75FBC11C8CE85600F9A1AC /* afterlife.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBB51C8CE85600F9A1AC /* afterlife.swift */; };
+		3C75FBC21C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBB71C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.m */; };
+		3C75FBC31C8CE85600F9A1AC /* NSNotificationCenter+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBB81C8CE85600F9A1AC /* NSNotificationCenter+Promise.swift */; };
+		3C75FBC41C8CE85600F9A1AC /* NSObject+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBB91C8CE85600F9A1AC /* NSObject+Promise.swift */; };
+		3C75FBC91C8CE85600F9A1AC /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBC01C8CE85600F9A1AC /* NSURLSession+Promise.swift */; };
+		3C75FBCB1C8CFEBA00F9A1AC /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBCA1C8CFEBA00F9A1AC /* FlickrClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +61,15 @@
 		3C50531E1C82679600276B26 /* VirtualTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C5053221C82679600276B26 /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		3C5053241C82679600276B26 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3C75FBAD1C8CE52C00F9A1AC /* OMGHTTPURLRQ.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OMGHTTPURLRQ.framework; path = Carthage/Build/iOS/OMGHTTPURLRQ.framework; sourceTree = "<group>"; };
+		3C75FBAE1C8CE52C00F9A1AC /* PromiseKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PromiseKit.framework; path = Carthage/Build/iOS/PromiseKit.framework; sourceTree = "<group>"; };
+		3C75FBB51C8CE85600F9A1AC /* afterlife.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = afterlife.swift; path = VirtualTourist/PromiseKit/Categories/Foundation/afterlife.swift; sourceTree = "<group>"; };
+		3C75FBB61C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSNotificationCenter+AnyPromise.h"; path = "VirtualTourist/PromiseKit/Categories/Foundation/NSNotificationCenter+AnyPromise.h"; sourceTree = "<group>"; };
+		3C75FBB71C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSNotificationCenter+AnyPromise.m"; path = "VirtualTourist/PromiseKit/Categories/Foundation/NSNotificationCenter+AnyPromise.m"; sourceTree = "<group>"; };
+		3C75FBB81C8CE85600F9A1AC /* NSNotificationCenter+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSNotificationCenter+Promise.swift"; path = "VirtualTourist/PromiseKit/Categories/Foundation/NSNotificationCenter+Promise.swift"; sourceTree = "<group>"; };
+		3C75FBB91C8CE85600F9A1AC /* NSObject+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSObject+Promise.swift"; path = "VirtualTourist/PromiseKit/Categories/Foundation/NSObject+Promise.swift"; sourceTree = "<group>"; };
+		3C75FBC01C8CE85600F9A1AC /* NSURLSession+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSURLSession+Promise.swift"; path = "VirtualTourist/PromiseKit/Categories/Foundation/NSURLSession+Promise.swift"; sourceTree = "<group>"; };
+		3C75FBCA1C8CFEBA00F9A1AC /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C75FBAF1C8CE52C00F9A1AC /* OMGHTTPURLRQ.framework in Frameworks */,
+				3C75FBB01C8CE52C00F9A1AC /* PromiseKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				3C4128D61C892B17006F4ECD /* Pin.swift */,
+				3C75FBCA1C8CFEBA00F9A1AC /* FlickrClient.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -91,6 +111,7 @@
 		3C5052F61C82679600276B26 = {
 			isa = PBXGroup;
 			children = (
+				3C75FBB21C8CE81600F9A1AC /* lib */,
 				3C5053011C82679600276B26 /* VirtualTourist */,
 				3C5053161C82679600276B26 /* VirtualTouristTests */,
 				3C5053211C82679600276B26 /* VirtualTouristUITests */,
@@ -142,6 +163,37 @@
 			path = VirtualTouristUITests;
 			sourceTree = "<group>";
 		};
+		3C75FBB21C8CE81600F9A1AC /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				3C75FBB31C8CE82200F9A1AC /* Categories */,
+				3C75FBAD1C8CE52C00F9A1AC /* OMGHTTPURLRQ.framework */,
+				3C75FBAE1C8CE52C00F9A1AC /* PromiseKit.framework */,
+			);
+			name = lib;
+			sourceTree = "<group>";
+		};
+		3C75FBB31C8CE82200F9A1AC /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				3C75FBB41C8CE82F00F9A1AC /* Foundation */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		3C75FBB41C8CE82F00F9A1AC /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				3C75FBB51C8CE85600F9A1AC /* afterlife.swift */,
+				3C75FBB61C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.h */,
+				3C75FBB71C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.m */,
+				3C75FBB81C8CE85600F9A1AC /* NSNotificationCenter+Promise.swift */,
+				3C75FBB91C8CE85600F9A1AC /* NSObject+Promise.swift */,
+				3C75FBC01C8CE85600F9A1AC /* NSURLSession+Promise.swift */,
+			);
+			name = Foundation;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -152,6 +204,7 @@
 				3C5052FB1C82679600276B26 /* Sources */,
 				3C5052FC1C82679600276B26 /* Frameworks */,
 				3C5052FD1C82679600276B26 /* Resources */,
+				3C75FBB11C8CE65000F9A1AC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -268,16 +321,40 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3C75FBB11C8CE65000F9A1AC /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/OMGHTTPURLRQ.framework",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3C5052FB1C82679600276B26 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C75FBC31C8CE85600F9A1AC /* NSNotificationCenter+Promise.swift in Sources */,
+				3C75FBC41C8CE85600F9A1AC /* NSObject+Promise.swift in Sources */,
 				3C5053051C82679600276B26 /* ViewController.swift in Sources */,
 				3C5053031C82679600276B26 /* AppDelegate.swift in Sources */,
+				3C75FBC11C8CE85600F9A1AC /* afterlife.swift in Sources */,
+				3C75FBC91C8CE85600F9A1AC /* NSURLSession+Promise.swift in Sources */,
 				3C4128DA1C892F76006F4ECD /* Model.xcdatamodeld in Sources */,
 				3C4128D41C869260006F4ECD /* CoreDataStackManager.swift in Sources */,
+				3C75FBCB1C8CFEBA00F9A1AC /* FlickrClient.swift in Sources */,
 				3C4128D71C892B17006F4ECD /* Pin.swift in Sources */,
+				3C75FBC21C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -417,10 +494,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = VirtualTourist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.udacity.VirtualTourist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -428,6 +511,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = VirtualTourist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.udacity.VirtualTourist;

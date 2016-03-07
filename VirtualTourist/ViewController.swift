@@ -11,9 +11,12 @@ import MapKit
 import CoreData
 
 
+
 class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    
+    let flickrClient = FlickrClient()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,6 +98,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
             saveContext()
             
             annotation.coordinate = coordinate
+            flickrClient.getImages(latitude: coordinate.latitude, longitude: coordinate.longitude)
             
             mapView.addAnnotation(annotation)
         }
