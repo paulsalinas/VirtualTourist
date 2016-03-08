@@ -67,29 +67,57 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hkF-il-Hx3">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hkF-il-Hx3">
                                 <rect key="frame" x="0.0" y="236" width="600" height="364"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fhy-nN-Mxb">
-                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="itemSize" width="218" height="156"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="FwE-zv-k31">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="FwE-zv-k31" customClass="PhotoCollectionViewCell" customModule="VirtualTourist" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="218" height="156"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="218" height="156"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eIP-if-TOT">
+                                                    <rect key="frame" x="0.0" y="0.0" width="218" height="156"/>
+                                                </imageView>
+                                            </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
+                                        <constraints>
+                                            <constraint firstAttribute="trailingMargin" secondItem="eIP-if-TOT" secondAttribute="trailing" constant="-8" id="57C-FF-qvy"/>
+                                            <constraint firstItem="eIP-if-TOT" firstAttribute="leading" secondItem="FwE-zv-k31" secondAttribute="leadingMargin" constant="-8" id="9Wp-J3-60E"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="eIP-if-TOT" secondAttribute="bottom" constant="-8" id="Nrh-zo-Bw9"/>
+                                            <constraint firstItem="eIP-if-TOT" firstAttribute="top" secondItem="FwE-zv-k31" secondAttribute="topMargin" constant="-8" id="Vsx-be-XY1"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="imageView" destination="eIP-if-TOT" id="Q8O-x1-ndF"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="Awd-uw-IS3" id="GjL-1v-0Og"/>
+                                    <outlet property="delegate" destination="Awd-uw-IS3" id="XqP-LP-KRo"/>
+                                </connections>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="hkF-il-Hx3" firstAttribute="top" secondItem="2Z4-Ef-Pfg" secondAttribute="bottom" constant="216" id="9XX-nJ-Yzr"/>
+                            <constraint firstItem="hkF-il-Hx3" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="Kz1-GR-tQa"/>
+                            <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" id="lhW-op-vH1"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hkF-il-Hx3" secondAttribute="trailing" constant="-20" id="niz-uP-jLd"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="collectionView" destination="hkF-il-Hx3" id="joe-mo-bXu"/>
+                        <outlet property="flowLayout" destination="fhy-nN-Mxb" id="rE6-Cz-e0L"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ge5-e4-BoS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -138,6 +138,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
         print("Double latitude \(pin!.latitude as Double)  longitude\(pin!.longitude as Double)")
         
         let controller = storyboard?.instantiateViewControllerWithIdentifier("PhotosViewController") as! PhotosViewController
+        controller.pin = pin
         navigationController?.pushViewController(controller, animated: true)
         
     }
