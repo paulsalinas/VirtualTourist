@@ -12,7 +12,7 @@ import CoreData
 import PromiseKit
 
 
-class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
@@ -136,6 +136,9 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
         let annotation = (recognizer.view as! MKPinAnnotationView).annotation!
         let pin = fetchPin(longitude: annotation.coordinate.longitude, latitude: annotation.coordinate.latitude)
         print("Double latitude \(pin!.latitude as Double)  longitude\(pin!.longitude as Double)")
+        
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("PhotosViewController") as! PhotosViewController
+        navigationController?.pushViewController(controller, animated: true)
         
     }
     

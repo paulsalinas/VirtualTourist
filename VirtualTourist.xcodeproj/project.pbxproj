@@ -11,7 +11,7 @@
 		3C4128D71C892B17006F4ECD /* Pin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4128D61C892B17006F4ECD /* Pin.swift */; };
 		3C4128DA1C892F76006F4ECD /* Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3C4128D81C892F76006F4ECD /* Model.xcdatamodeld */; };
 		3C5053031C82679600276B26 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5053021C82679600276B26 /* AppDelegate.swift */; };
-		3C5053051C82679600276B26 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5053041C82679600276B26 /* ViewController.swift */; };
+		3C5053051C82679600276B26 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5053041C82679600276B26 /* MapViewController.swift */; };
 		3C5053081C82679600276B26 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C5053061C82679600276B26 /* Main.storyboard */; };
 		3C50530A1C82679600276B26 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C5053091C82679600276B26 /* Assets.xcassets */; };
 		3C50530D1C82679600276B26 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C50530B1C82679600276B26 /* LaunchScreen.storyboard */; };
@@ -28,6 +28,7 @@
 		3C75FBCD1C8D279B00F9A1AC /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C75FBCC1C8D279B00F9A1AC /* SwiftyJSON.framework */; };
 		3C75FBCF1C8D33B000F9A1AC /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBCE1C8D33B000F9A1AC /* ImageCache.swift */; };
 		3C75FBD11C8D342600F9A1AC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD01C8D342600F9A1AC /* Photo.swift */; };
+		3C75FBD51C8E605600F9A1AC /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD41C8E605600F9A1AC /* PhotosViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +54,7 @@
 		3C4128D91C892F76006F4ECD /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		3C5052FF1C82679600276B26 /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C5053021C82679600276B26 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3C5053041C82679600276B26 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3C5053041C82679600276B26 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		3C5053071C82679600276B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3C5053091C82679600276B26 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3C50530C1C82679600276B26 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -76,6 +77,7 @@
 		3C75FBCC1C8D279B00F9A1AC /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
 		3C75FBCE1C8D33B000F9A1AC /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		3C75FBD01C8D342600F9A1AC /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		3C75FBD41C8E605600F9A1AC /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,13 +145,14 @@
 			children = (
 				3C4128D51C892A6B006F4ECD /* Model */,
 				3C5053021C82679600276B26 /* AppDelegate.swift */,
-				3C5053041C82679600276B26 /* ViewController.swift */,
+				3C5053041C82679600276B26 /* MapViewController.swift */,
 				3C5053061C82679600276B26 /* Main.storyboard */,
 				3C5053091C82679600276B26 /* Assets.xcassets */,
 				3C50530B1C82679600276B26 /* LaunchScreen.storyboard */,
 				3C50530E1C82679600276B26 /* Info.plist */,
 				3C4128D31C869260006F4ECD /* CoreDataStackManager.swift */,
 				3C4128D81C892F76006F4ECD /* Model.xcdatamodeld */,
+				3C75FBD41C8E605600F9A1AC /* PhotosViewController.swift */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -357,7 +360,7 @@
 			files = (
 				3C75FBC31C8CE85600F9A1AC /* NSNotificationCenter+Promise.swift in Sources */,
 				3C75FBC41C8CE85600F9A1AC /* NSObject+Promise.swift in Sources */,
-				3C5053051C82679600276B26 /* ViewController.swift in Sources */,
+				3C5053051C82679600276B26 /* MapViewController.swift in Sources */,
 				3C5053031C82679600276B26 /* AppDelegate.swift in Sources */,
 				3C75FBC11C8CE85600F9A1AC /* afterlife.swift in Sources */,
 				3C75FBC91C8CE85600F9A1AC /* NSURLSession+Promise.swift in Sources */,
@@ -366,6 +369,7 @@
 				3C4128DA1C892F76006F4ECD /* Model.xcdatamodeld in Sources */,
 				3C4128D41C869260006F4ECD /* CoreDataStackManager.swift in Sources */,
 				3C75FBCB1C8CFEBA00F9A1AC /* FlickrClient.swift in Sources */,
+				3C75FBD51C8E605600F9A1AC /* PhotosViewController.swift in Sources */,
 				3C4128D71C892B17006F4ECD /* Pin.swift in Sources */,
 				3C75FBC21C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.m in Sources */,
 			);
