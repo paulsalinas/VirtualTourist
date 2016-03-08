@@ -9,14 +9,14 @@
 import UIKit
 import MapKit
 import CoreData
-
+import PromiseKit
 
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
     
-    let flickrClient = FlickrClient()
+    let flickrClient = FlickrClient.sharedInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,11 +94,39 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDe
             
             let annotation = MKPointAnnotation()
             let coordinate = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
-            _ = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
+            let newPin = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
             saveContext()
             
             annotation.coordinate = coordinate
-            flickrClient.getImages(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            
+            firstly {
+                flickrClient.getImageUrls(latitude: coordinate.latitude, longitude: coordinate.longitude)
+            }.then { imageCollection -> Promise<[NSDictionary]> in
+                
+                // 1) persist the fetched image data
+                imageCollection.forEach { dict in
+                    _ = Photo(dictionary: dict, pin: newPin, context: self.sharedContext)
+                    
+                }
+                self.saveContext()
+                
+                // 2) fetch and store each image
+                newPin.photos.forEach { photo in
+                    
+                    firstly {
+                        self.flickrClient.getImage(url: photo.imagePath!)
+                    }.then { image in
+                        photo.image = image
+                    }.error { error in
+                      // TODO: handle flickr client error here
+                    }
+                   
+                }
+                
+                return Promise<[NSDictionary]>(imageCollection)
+            }.error { error in
+                // TODO: handle flickr client error here
+            }
             
             mapView.addAnnotation(annotation)
         }

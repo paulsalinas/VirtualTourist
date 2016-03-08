@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 import PromiseKit
 import SwiftyJSON
 
@@ -26,31 +27,58 @@ class FlickrClient {
     let LAT_MAX = 90.0
     let LON_MIN = -180.0
     let LON_MAX = 180.0
+    let PER_PAGE = 21
+    
+    class func sharedInstance() -> FlickrClient {
+        
+        struct Singleton {
+            static var sharedInstance = FlickrClient()
+        }
+        
+        return Singleton.sharedInstance
+    }
+    
+    struct Caches {
+        static let imageCache = ImageCache()
+    }
 
-    func getImages(latitude latitude: Double, longitude: Double) {
-        let methodArguments = [
+    func getImageUrls(latitude latitude: Double, longitude: Double) -> Promise<[[String: AnyObject]]> {
+        let methodArguments:[NSObject: AnyObject] = [
             "method": METHOD_NAME,
             "api_key": API_KEY,
             "bbox": createBoundingBoxString(latitude: latitude, longitude: longitude),
             "safe_search": SAFE_SEARCH,
             "extras": EXTRAS,
             "format": DATA_FORMAT,
-            "nojsoncallback": NO_JSON_CALLBACK
+            "nojsoncallback": NO_JSON_CALLBACK,
+            "per_page": PER_PAGE,
         ]
         
         let urlString = BASE_URL
         
-        firstly {
+        return firstly {
             NSURLSession.POST(urlString, formData: methodArguments)
         }.then { data in
             let json = JSON(data: data)
             print(json)
             let photos = json["photos"]["photo"].arrayValue
-            let urls = photos.map { $0["url_m"] }
+            let urls: [[String: AnyObject]] = photos.map {
+                [
+                    "id": $0["id"].intValue,
+                    "imagePath": $0["url_m"].stringValue
+                ]
+            }
+            
             print(urls)
-            return AnyPromise(bound: Promise<NSData>(data))
-        }.error { error in
-            print("error \(error)")
+            return Promise<[[String: AnyObject]]>(urls)
+        }
+    }
+    
+    func getImage(url url: String) -> Promise<UIImage?> {
+        return firstly {
+            NSURLSession.GET(url)
+        }.then { data in
+            return Promise<UIImage?>(UIImage(data: data))
         }
     }
     

@@ -26,6 +26,8 @@
 		3C75FBC91C8CE85600F9A1AC /* NSURLSession+Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBC01C8CE85600F9A1AC /* NSURLSession+Promise.swift */; };
 		3C75FBCB1C8CFEBA00F9A1AC /* FlickrClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBCA1C8CFEBA00F9A1AC /* FlickrClient.swift */; };
 		3C75FBCD1C8D279B00F9A1AC /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C75FBCC1C8D279B00F9A1AC /* SwiftyJSON.framework */; };
+		3C75FBCF1C8D33B000F9A1AC /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBCE1C8D33B000F9A1AC /* ImageCache.swift */; };
+		3C75FBD11C8D342600F9A1AC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD01C8D342600F9A1AC /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		3C75FBC01C8CE85600F9A1AC /* NSURLSession+Promise.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSURLSession+Promise.swift"; path = "VirtualTourist/PromiseKit/Categories/Foundation/NSURLSession+Promise.swift"; sourceTree = "<group>"; };
 		3C75FBCA1C8CFEBA00F9A1AC /* FlickrClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FlickrClient.swift; sourceTree = "<group>"; };
 		3C75FBCC1C8D279B00F9A1AC /* SwiftyJSON.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftyJSON.framework; path = Carthage/Build/iOS/SwiftyJSON.framework; sourceTree = "<group>"; };
+		3C75FBCE1C8D33B000F9A1AC /* ImageCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
+		3C75FBD01C8D342600F9A1AC /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +111,8 @@
 			children = (
 				3C4128D61C892B17006F4ECD /* Pin.swift */,
 				3C75FBCA1C8CFEBA00F9A1AC /* FlickrClient.swift */,
+				3C75FBCE1C8D33B000F9A1AC /* ImageCache.swift */,
+				3C75FBD01C8D342600F9A1AC /* Photo.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -355,6 +361,8 @@
 				3C5053031C82679600276B26 /* AppDelegate.swift in Sources */,
 				3C75FBC11C8CE85600F9A1AC /* afterlife.swift in Sources */,
 				3C75FBC91C8CE85600F9A1AC /* NSURLSession+Promise.swift in Sources */,
+				3C75FBD11C8D342600F9A1AC /* Photo.swift in Sources */,
+				3C75FBCF1C8D33B000F9A1AC /* ImageCache.swift in Sources */,
 				3C4128DA1C892F76006F4ECD /* Model.xcdatamodeld in Sources */,
 				3C4128D41C869260006F4ECD /* CoreDataStackManager.swift in Sources */,
 				3C75FBCB1C8CFEBA00F9A1AC /* FlickrClient.swift in Sources */,
