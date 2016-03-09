@@ -68,7 +68,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hkF-il-Hx3">
-                                <rect key="frame" x="0.0" y="236" width="600" height="364"/>
+                                <rect key="frame" x="0.0" y="179" width="600" height="421"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fhy-nN-Mxb">
                                     <size key="itemSize" width="218" height="156"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -83,7 +84,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="218" height="156"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eIP-if-TOT">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eIP-if-TOT">
                                                     <rect key="frame" x="0.0" y="0.0" width="218" height="156"/>
                                                 </imageView>
                                             </subviews>
@@ -108,7 +109,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hkF-il-Hx3" firstAttribute="top" secondItem="2Z4-Ef-Pfg" secondAttribute="bottom" constant="216" id="9XX-nJ-Yzr"/>
+                            <constraint firstItem="hkF-il-Hx3" firstAttribute="top" secondItem="2Z4-Ef-Pfg" secondAttribute="bottom" constant="159" id="9XX-nJ-Yzr"/>
                             <constraint firstItem="hkF-il-Hx3" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="Kz1-GR-tQa"/>
                             <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" id="lhW-op-vH1"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hkF-il-Hx3" secondAttribute="trailing" constant="-20" id="niz-uP-jLd"/>

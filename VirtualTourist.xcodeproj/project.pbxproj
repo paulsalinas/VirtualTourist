@@ -30,6 +30,7 @@
 		3C75FBD11C8D342600F9A1AC /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD01C8D342600F9A1AC /* Photo.swift */; };
 		3C75FBD51C8E605600F9A1AC /* PhotosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD41C8E605600F9A1AC /* PhotosViewController.swift */; };
 		3C75FBD71C8E6E7C00F9A1AC /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD61C8E6E7C00F9A1AC /* PhotoCollectionViewCell.swift */; };
+		3C75FBD91C8FBA1000F9A1AC /* ActivityOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD81C8FBA1000F9A1AC /* ActivityOverlay.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 		3C75FBD01C8D342600F9A1AC /* Photo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		3C75FBD41C8E605600F9A1AC /* PhotosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosViewController.swift; sourceTree = "<group>"; };
 		3C75FBD61C8E6E7C00F9A1AC /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		3C75FBD81C8FBA1000F9A1AC /* ActivityOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityOverlay.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +158,7 @@
 				3C4128D81C892F76006F4ECD /* Model.xcdatamodeld */,
 				3C75FBD41C8E605600F9A1AC /* PhotosViewController.swift */,
 				3C75FBD61C8E6E7C00F9A1AC /* PhotoCollectionViewCell.swift */,
+				3C75FBD81C8FBA1000F9A1AC /* ActivityOverlay.swift */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				3C75FBD51C8E605600F9A1AC /* PhotosViewController.swift in Sources */,
 				3C4128D71C892B17006F4ECD /* Pin.swift in Sources */,
 				3C75FBC21C8CE85600F9A1AC /* NSNotificationCenter+AnyPromise.m in Sources */,
+				3C75FBD91C8FBA1000F9A1AC /* ActivityOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

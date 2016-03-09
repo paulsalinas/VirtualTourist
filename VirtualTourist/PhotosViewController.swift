@@ -38,16 +38,20 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
         let photo = pin!.photos[indexPath.item]
+        let activityOverlay = ActivityOverlay(alpha: 0.7, activityIndicatorColor: UIColor.whiteColor(), overlayColor: UIColor.blackColor())
         
         if (photo.image != nil) {
             cell.imageView.image = photo.image
         } else {
-        
+            
+            activityOverlay.overlay(cell)
+            
             firstly {
                 flickrClient.getImage(url: photo.imagePath!)
             }.then { image -> Void in
                 photo.image = image
                 cell.imageView.image = image
+                activityOverlay.removeOverlay()
             }.error { error in
                 
                 // TODO: handle flickr error
