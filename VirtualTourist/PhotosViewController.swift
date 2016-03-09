@@ -8,11 +8,15 @@
 
 import UIKit
 import PromiseKit
+import MapKit
 
 class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var mapImage: UIImageView!
+    
+    
     let flickrClient = FlickrClient.sharedInstance()
     
     var pin: Pin?
@@ -22,6 +26,38 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
 
         collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
         adjustFlowLayout(view.frame.size)
+        let options = MKMapSnapshotOptions()
+        let center =  CLLocationCoordinate2D(latitude: pin!.latitude as Double, longitude: pin!.longitude as Double)
+        options.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 1.5))
+        let mapSnapShotter = MKMapSnapshotter(options: options)
+        mapSnapShotter.startWithCompletionHandler { (snapshot, error) -> Void in
+            if let error = error {
+                // TODO: print and do nothing for now.
+                print (error)
+                return
+            }
+            
+            let pin = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
+            //self.mapImage.image = snapshot!.image
+            
+            let image = snapshot!.image
+            
+            UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
+            image.drawAtPoint(CGPoint.zero)
+            
+            var point = snapshot!.pointForCoordinate(center)
+
+            point.x = point.x + pin.centerOffset.x - (pin.bounds.size.width / 2)
+            point.y = point.y + pin.centerOffset.y - (pin.bounds.size.height / 2)
+
+            pin.image!.drawAtPoint(point)
+            
+            self.mapImage.image = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            
+        }
+        
     }
     
     override func viewWillAppear(animated: Bool) {

@@ -67,8 +67,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="SP8-Jl-27z">
+                                <rect key="frame" x="0.0" y="44" width="600" height="158"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="158" id="lAP-0P-fpY"/>
+                                </constraints>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hkF-il-Hx3">
-                                <rect key="frame" x="0.0" y="179" width="600" height="421"/>
+                                <rect key="frame" x="0.0" y="210" width="600" height="390"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fhy-nN-Mxb">
                                     <size key="itemSize" width="218" height="156"/>
@@ -109,15 +115,20 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="hkF-il-Hx3" firstAttribute="top" secondItem="2Z4-Ef-Pfg" secondAttribute="bottom" constant="159" id="9XX-nJ-Yzr"/>
-                            <constraint firstItem="hkF-il-Hx3" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="Kz1-GR-tQa"/>
-                            <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" id="lhW-op-vH1"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hkF-il-Hx3" secondAttribute="trailing" constant="-20" id="niz-uP-jLd"/>
+                            <constraint firstItem="hkF-il-Hx3" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="3n9-ZX-27e"/>
+                            <constraint firstItem="SP8-Jl-27z" firstAttribute="top" secondItem="2Z4-Ef-Pfg" secondAttribute="bottom" constant="24" id="K1d-Pk-xQy"/>
+                            <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" id="Q8W-Nt-4ZB"/>
+                            <constraint firstItem="SP8-Jl-27z" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="RMH-CF-iWO"/>
+                            <constraint firstItem="hkF-il-Hx3" firstAttribute="top" secondItem="SP8-Jl-27z" secondAttribute="bottom" constant="8" id="ZX0-j2-vsq"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="hkF-il-Hx3" secondAttribute="trailing" constant="-20" id="dgo-sM-2wG"/>
+                            <constraint firstItem="hkF-il-Hx3" firstAttribute="top" secondItem="SP8-Jl-27z" secondAttribute="bottom" constant="8" id="fnf-7P-gIZ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="SP8-Jl-27z" secondAttribute="trailing" constant="-20" id="gNt-mX-Yaz"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="hkF-il-Hx3" id="joe-mo-bXu"/>
                         <outlet property="flowLayout" destination="fhy-nN-Mxb" id="rE6-Cz-e0L"/>
+                        <outlet property="mapImage" destination="SP8-Jl-27z" id="HQX-QP-qli"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ge5-e4-BoS" userLabel="First Responder" sceneMemberID="firstResponder"/>
