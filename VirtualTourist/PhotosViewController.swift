@@ -33,6 +33,9 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         mapView.zoomEnabled = false
         mapView.scrollEnabled = false
         
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = center
+        mapView.addAnnotation(annotation)
     }
     
     override func viewWillAppear(animated: Bool) {
