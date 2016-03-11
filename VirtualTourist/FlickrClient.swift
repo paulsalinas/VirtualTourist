@@ -42,7 +42,7 @@ class FlickrClient {
         static let imageCache = ImageCache()
     }
 
-    func getImageUrls(latitude latitude: Double, longitude: Double) -> Promise<[[String: AnyObject]]> {
+    func getImageUrls(latitude latitude: Double, longitude: Double, flickrPage: Int = 1) -> Promise<[[String: AnyObject]]> {
         let methodArguments:[NSObject: AnyObject] = [
             "method": METHOD_NAME,
             "api_key": API_KEY,
@@ -52,6 +52,7 @@ class FlickrClient {
             "format": DATA_FORMAT,
             "nojsoncallback": NO_JSON_CALLBACK,
             "per_page": PER_PAGE,
+            "page": flickrPage
         ]
         
         let urlString = BASE_URL

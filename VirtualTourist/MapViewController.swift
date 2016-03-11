@@ -101,7 +101,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             
             firstly {
                 flickrClient.getImageUrls(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            }.then { imageCollection -> Promise<[NSDictionary]> in
+            }.then { imageCollection -> Void in
                 
                 // 1) persist the fetched image data
                 imageCollection.forEach { dict in
@@ -122,8 +122,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
                     }
                    
                 }
-                
-                return Promise<[NSDictionary]>(imageCollection)
             }.error { error in
                 // TODO: handle flickr client error here
             }

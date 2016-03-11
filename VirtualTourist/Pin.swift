@@ -19,6 +19,7 @@ class Pin : NSManagedObject {
     @NSManaged var longitude: NSNumber
     @NSManaged var latitude: NSNumber
     @NSManaged var photos: [Photo]
+    @NSManaged var flickrPage: NSNumber
     
     override init(entity: NSEntityDescription, insertIntoManagedObjectContext context: NSManagedObjectContext?) {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
@@ -33,6 +34,7 @@ class Pin : NSManagedObject {
         // Dictionary
         longitude = dictionary[Keys.Latitude] as! NSNumber
         latitude = dictionary[Keys.Longitude] as! NSNumber
+        flickrPage = 1
     }
     
     
@@ -45,5 +47,6 @@ class Pin : NSManagedObject {
         // Dictionary
         self.longitude = longitude
         self.latitude = latitude
+        flickrPage = 1
     }
 }
