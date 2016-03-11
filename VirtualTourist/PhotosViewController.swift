@@ -14,7 +14,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var mapImage: UIImageView!
+    @IBOutlet weak var mapView: MKMapView!
     
     
     let flickrClient = FlickrClient.sharedInstance()
@@ -23,40 +23,15 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        automaticallyAdjustsScrollViewInsets = false
         collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+    
         adjustFlowLayout(view.frame.size)
-        let options = MKMapSnapshotOptions()
+        
         let center =  CLLocationCoordinate2D(latitude: pin!.latitude as Double, longitude: pin!.longitude as Double)
-        options.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 1.5, longitudeDelta: 1.5))
-        let mapSnapShotter = MKMapSnapshotter(options: options)
-        mapSnapShotter.startWithCompletionHandler { (snapshot, error) -> Void in
-            if let error = error {
-                // TODO: print and do nothing for now.
-                print (error)
-                return
-            }
-            
-            let pin = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
-            //self.mapImage.image = snapshot!.image
-            
-            let image = snapshot!.image
-            
-            UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
-            image.drawAtPoint(CGPoint.zero)
-            
-            var point = snapshot!.pointForCoordinate(center)
-
-            point.x = point.x + pin.centerOffset.x - (pin.bounds.size.width / 2)
-            point.y = point.y + pin.centerOffset.y - (pin.bounds.size.height / 2)
-
-            pin.image!.drawAtPoint(point)
-            
-            self.mapImage.image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
-            
-            
-        }
+        mapView.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        mapView.zoomEnabled = false
+        mapView.scrollEnabled = false
         
     }
     
@@ -105,7 +80,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         let space: CGFloat = 1.5
-        let dimension:CGFloat = size.width >= size.height ? (size.width - (5 * space)) / 6.0 :  (size.width - (2 * space)) / 3.0
+        let dimension:CGFloat = size.width >= size.height ? (size.width - (5 * space)) / 7.0 :  (size.width - (2 * space)) / 3.0
         
         flowLayout.minimumInteritemSpacing = space
         flowLayout.minimumLineSpacing = space
