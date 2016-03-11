@@ -49,7 +49,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
         let photo = pin!.photos[indexPath.item]
-        let activityOverlay = ActivityOverlay(alpha: 0.7, activityIndicatorColor: UIColor.whiteColor(), overlayColor: UIColor.blackColor())
+        let activityOverlay = ActivityOverlay(alpha: 0.7, activityIndicatorColor: UIColor.blackColor(), overlayColor: UIColor.whiteColor())
         
         if (photo.image != nil) {
             cell.imageView.image = photo.image
