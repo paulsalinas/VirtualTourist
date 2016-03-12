@@ -190,9 +190,36 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             saveContext()
         } else if (newState == MKAnnotationViewDragState.Ending && newState != MKAnnotationViewDragState.Canceling) {
             
-            // add the annotation view
+            // add the moved annotation view
             let coordinate = view.annotation!.coordinate
-            _ = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
+            let newPin = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
+            firstly {
+                flickrClient.getImageUrls(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                }.then { imageCollection -> Void in
+                    
+                    // 1) persist the fetched image data
+                    imageCollection.forEach { dict in
+                        _ = Photo(dictionary: dict, pin: newPin, context: self.sharedContext)
+                        
+                    }
+                    self.saveContext()
+                    
+                    // 2) fetch and store each image
+                    newPin.photos.forEach { photo in
+                        
+                        firstly {
+                            self.flickrClient.getImage(url: photo.imagePath!)
+                            }.then { image in
+                                photo.image = image
+                            }.error { error in
+                                // TODO: handle flickr client error here
+                        }
+                        
+                    }
+                }.error { error in
+                    // TODO: handle flickr client error here
+            }
+            
             saveContext()
         }
     }
