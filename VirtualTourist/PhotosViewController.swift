@@ -9,6 +9,7 @@
 import UIKit
 import PromiseKit
 import MapKit
+import CoreData
 
 class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -19,7 +20,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     let flickrClient = FlickrClient.sharedInstance()
     
-    var pin: Pin?
+    var pin: Pin!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,6 +75,45 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         return cell
+    }
+    
+    @IBAction func newCollectionTouchUp(sender: AnyObject) {
+        
+        // invalidate all of the cache in the photos and delete them from core data
+        pin!.photos.forEach{ photo in
+            photo.image = nil
+            sharedContext.deleteObject(photo)
+        }
+        
+        pin.flickrPage = (pin.flickrPage as Int) + 1
+        saveContext()
+        self.collectionView.reloadData()
+        
+        // refetch new data
+        firstly {
+            flickrClient.getImageUrls(latitude: pin.latitude as Double, longitude: pin.longitude as Double, flickrPage: pin.flickrPage as Int)
+        }.then { imageCollection -> Void in
+                
+            // 1) persist the fetched image data
+            imageCollection.forEach { dict in
+                _ = Photo(dictionary: dict, pin: self.pin, context: self.sharedContext)
+                
+            }
+            self.saveContext()
+            self.collectionView.reloadData()
+        }
+        
+        
+    }
+    
+    // MARK: - Core Data Convenience
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance().managedObjectContext
+    }
+    
+    func saveContext() {
+        CoreDataStackManager.sharedInstance().saveContext()
     }
     
     /* adjust flow layout based on size of the screen. typically portrait vs. landscape mode*/

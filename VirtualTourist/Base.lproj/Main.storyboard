@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -67,13 +68,20 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="szD-JR-aKa">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="szD-JR-aKa">
                                 <rect key="frame" x="0.0" y="20" width="600" height="184"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="UIh-ky-IyR"/>
                                 </constraints>
                             </mapView>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hkF-il-Hx3">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6B-vd-C0c">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="New Collection"/>
+                                <connections>
+                                    <action selector="newCollectionTouchUp:" destination="Awd-uw-IS3" eventType="touchUpInside" id="ed5-Wr-G0L"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="hkF-il-Hx3">
                                 <rect key="frame" x="0.0" y="204" width="600" height="396"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="fhy-nN-Mxb">
@@ -115,17 +123,41 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" id="0R9-5R-L9R"/>
-                            <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" id="8mg-3R-enh"/>
+                            <constraint firstItem="M6B-vd-C0c" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="1Xd-TP-mAh"/>
+                            <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="M6B-vd-C0c" secondAttribute="bottom" id="5Ts-oU-izv"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="M6B-vd-C0c" secondAttribute="trailing" constant="-20" id="DNT-e8-EGO"/>
                             <constraint firstAttribute="trailingMargin" secondItem="szD-JR-aKa" secondAttribute="trailing" constant="-20" id="Fdg-fg-vD5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hkF-il-Hx3" secondAttribute="trailing" constant="-20" id="J7p-qi-YcV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hkF-il-Hx3" secondAttribute="trailing" constant="-20" id="Pgf-xS-C4F"/>
                             <constraint firstItem="szD-JR-aKa" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="X0t-ZQ-Ycm"/>
                             <constraint firstItem="hkF-il-Hx3" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="ZbT-4d-uKl"/>
                             <constraint firstItem="szD-JR-aKa" firstAttribute="top" secondItem="2Z4-Ef-Pfg" secondAttribute="bottom" id="aHa-yu-fRO"/>
+                            <constraint firstItem="M6B-vd-C0c" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" constant="8" id="lBm-e8-vpx"/>
                             <constraint firstItem="hkF-il-Hx3" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="nbt-iP-bJ9"/>
                             <constraint firstItem="hkF-il-Hx3" firstAttribute="top" secondItem="szD-JR-aKa" secondAttribute="bottom" id="w2W-RM-SIf"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="M6B-vd-C0c"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="1Xd-TP-mAh"/>
+                                <exclude reference="DNT-e8-EGO"/>
+                                <exclude reference="lBm-e8-vpx"/>
+                                <exclude reference="5Ts-oU-izv"/>
+                            </mask>
+                        </variation>
+                        <variation key="widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="M6B-vd-C0c"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="1Xd-TP-mAh"/>
+                                <include reference="DNT-e8-EGO"/>
+                                <include reference="lBm-e8-vpx"/>
+                                <include reference="5Ts-oU-izv"/>
+                            </mask>
+                        </variation>
                     </view>
                     <connections>
                         <outlet property="collectionView" destination="hkF-il-Hx3" id="joe-mo-bXu"/>
