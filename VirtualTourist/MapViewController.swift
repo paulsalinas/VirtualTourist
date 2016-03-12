@@ -131,13 +131,18 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
     }
     
     func handleSingeTap(recognizer: UITapGestureRecognizer) {
-        let annotation = (recognizer.view as! MKPinAnnotationView).annotation!
-        let pin = fetchPin(longitude: annotation.coordinate.longitude, latitude: annotation.coordinate.latitude)
-        print("Double latitude \(pin!.latitude as Double)  longitude\(pin!.longitude as Double)")
+        guard let annotation = (recognizer.view as! MKPinAnnotationView).annotation else {
+            return
+        }
         
-        let controller = storyboard?.instantiateViewControllerWithIdentifier("PhotosViewController") as! PhotosViewController
-        controller.pin = pin
-        navigationController?.pushViewController(controller, animated: true)
+        
+        if let pin = fetchPin(longitude: annotation.coordinate.longitude, latitude: annotation.coordinate.latitude) {
+            print("Double latitude \(pin.latitude as Double)  longitude\(pin.longitude as Double)")
+            
+            let controller = storyboard?.instantiateViewControllerWithIdentifier("PhotosViewController") as! PhotosViewController
+            controller.pin = pin
+            navigationController?.pushViewController(controller, animated: true)
+        }
         
     }
     
