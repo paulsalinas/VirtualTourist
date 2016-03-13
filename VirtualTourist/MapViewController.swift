@@ -130,6 +130,10 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
     // MARK: - Gesture Handler Functions
     
     func handleLongTouch(recognizer: UILongPressGestureRecognizer) {
+        guard isEditingPins != true else {
+            return
+        }
+        
         if recognizer.state == UIGestureRecognizerState.Began {
             
             let annotation = MKPointAnnotation()
@@ -175,14 +179,20 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             return
         }
         
-        
-        if let pin = fetchPin(longitude: annotation.coordinate.longitude, latitude: annotation.coordinate.latitude) {
-            print("Double latitude \(pin.latitude as Double)  longitude\(pin.longitude as Double)")
-            
-            let controller = storyboard?.instantiateViewControllerWithIdentifier("PhotosViewController") as! PhotosViewController
-            controller.pin = pin
-            navigationController?.pushViewController(controller, animated: true)
+        guard let pin = fetchPin(longitude: annotation.coordinate.longitude, latitude: annotation.coordinate.latitude) else {
+            return
         }
+        
+        if isEditingPins == true {
+            sharedContext.deleteObject(pin)
+            mapView.removeAnnotation(annotation)
+            saveContext()
+            return
+        }
+        
+        let controller = storyboard?.instantiateViewControllerWithIdentifier("PhotosViewController") as! PhotosViewController
+        controller.pin = pin
+        navigationController?.pushViewController(controller, animated: true)
         
     }
     

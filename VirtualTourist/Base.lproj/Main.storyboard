@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -83,7 +82,20 @@
                             </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6B-vd-C0c">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="knL-kd-ky3"/>
+                                </constraints>
                                 <state key="normal" title="New Collection"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="knL-kd-ky3"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="knL-kd-ky3"/>
+                                    </mask>
+                                </variation>
                                 <connections>
                                     <action selector="newCollectionTouchUp:" destination="Awd-uw-IS3" eventType="touchUpInside" id="ed5-Wr-G0L"/>
                                 </connections>
@@ -130,18 +142,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="M6B-vd-C0c" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="1Xd-TP-mAh"/>
-                            <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="M6B-vd-C0c" secondAttribute="bottom" id="5Ts-oU-izv"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="M6B-vd-C0c" secondAttribute="trailing" constant="-20" id="DNT-e8-EGO"/>
+                            <constraint firstItem="M6B-vd-C0c" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="3aB-vZ-KEQ"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="M6B-vd-C0c" secondAttribute="trailing" constant="-20" id="Bxu-z7-s8h"/>
                             <constraint firstAttribute="trailingMargin" secondItem="szD-JR-aKa" secondAttribute="trailing" constant="-20" id="Fdg-fg-vD5"/>
                             <constraint firstAttribute="trailingMargin" secondItem="hkF-il-Hx3" secondAttribute="trailing" constant="-20" id="J7p-qi-YcV"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="hkF-il-Hx3" secondAttribute="trailing" constant="-20" id="Pgf-xS-C4F"/>
                             <constraint firstItem="szD-JR-aKa" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="X0t-ZQ-Ycm"/>
-                            <constraint firstItem="hkF-il-Hx3" firstAttribute="bottom" secondItem="bks-5B-Qqj" secondAttribute="top" id="Xt8-aG-NF7"/>
                             <constraint firstItem="hkF-il-Hx3" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="ZbT-4d-uKl"/>
                             <constraint firstItem="szD-JR-aKa" firstAttribute="top" secondItem="2Z4-Ef-Pfg" secondAttribute="bottom" id="aHa-yu-fRO"/>
-                            <constraint firstItem="M6B-vd-C0c" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" constant="8" id="lBm-e8-vpx"/>
-                            <constraint firstItem="hkF-il-Hx3" firstAttribute="leading" secondItem="gBm-2y-I8H" secondAttribute="leadingMargin" constant="-20" id="nbt-iP-bJ9"/>
+                            <constraint firstItem="M6B-vd-C0c" firstAttribute="top" secondItem="hkF-il-Hx3" secondAttribute="bottom" constant="8" id="nAA-Nz-POR"/>
+                            <constraint firstItem="bks-5B-Qqj" firstAttribute="top" secondItem="M6B-vd-C0c" secondAttribute="bottom" id="pIs-EC-dfa"/>
                             <constraint firstItem="hkF-il-Hx3" firstAttribute="top" secondItem="szD-JR-aKa" secondAttribute="bottom" id="w2W-RM-SIf"/>
                         </constraints>
                         <variation key="default">
@@ -149,21 +158,23 @@
                                 <exclude reference="M6B-vd-C0c"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="1Xd-TP-mAh"/>
-                                <exclude reference="DNT-e8-EGO"/>
-                                <exclude reference="lBm-e8-vpx"/>
-                                <exclude reference="5Ts-oU-izv"/>
+                                <exclude reference="3aB-vZ-KEQ"/>
+                                <exclude reference="Bxu-z7-s8h"/>
+                                <exclude reference="nAA-Nz-POR"/>
+                                <exclude reference="pIs-EC-dfa"/>
                             </mask>
                         </variation>
                         <variation key="widthClass=compact">
                             <mask key="subviews">
                                 <include reference="M6B-vd-C0c"/>
                             </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
                             <mask key="constraints">
-                                <include reference="1Xd-TP-mAh"/>
-                                <include reference="DNT-e8-EGO"/>
-                                <include reference="lBm-e8-vpx"/>
-                                <include reference="5Ts-oU-izv"/>
+                                <include reference="3aB-vZ-KEQ"/>
+                                <include reference="Bxu-z7-s8h"/>
+                                <include reference="nAA-Nz-POR"/>
+                                <include reference="pIs-EC-dfa"/>
                             </mask>
                         </variation>
                     </view>
@@ -175,7 +186,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ge5-e4-BoS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1218" y="145"/>
+            <point key="canvasLocation" x="1218" y="144.75"/>
         </scene>
     </scenes>
 </document>
