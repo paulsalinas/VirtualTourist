@@ -15,6 +15,9 @@ import PromiseKit
 class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    var instructionView: UILabel!
+    var isEditingPins: Bool!
+    @IBOutlet weak var editBtn: UIBarButtonItem!
     
     let flickrClient = FlickrClient.sharedInstance()
     
@@ -33,7 +36,44 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
         restoreMapState(false)
         
         addPinsToMap(fetchAllPins())
+        
+        instructionView = UILabel()
+        instructionView.backgroundColor = UIColor.redColor()
+        view.addSubview(instructionView)
+        instructionView.frame.origin.y = view.frame.height
+        instructionView.frame.origin.x = 0
+        instructionView.frame.size.width = view.frame.width
+        instructionView.frame.size.height = view.frame.height / 6
+        instructionView.text = "Tap Pins to Delete"
+        instructionView.textAlignment = NSTextAlignment.Center
+        instructionView.textColor = UIColor.whiteColor()
+        
+        isEditingPins = false
+    }
     
+    @IBAction func editBtnTouchUp(sender: AnyObject) {
+        
+        let animationSpeed = 0.3
+        let y = mapView.frame.origin.y
+        
+        if (!isEditingPins) {
+            UIView.animateWithDuration(animationSpeed, animations: {
+                self.mapView.frame.origin.y = y - self.instructionView.frame.height
+                self.instructionView.frame.origin.y = self.instructionView.frame.origin.y - self.instructionView.frame.height
+            })
+            
+            isEditingPins = true
+            editBtn.title = "Done"
+            
+        } else {
+            UIView.animateWithDuration(animationSpeed, animations: {
+                self.mapView.frame.origin.y = y + self.instructionView.frame.height
+                self.instructionView.frame.origin.y = self.instructionView.frame.origin.y + self.instructionView.frame.height
+            })
+            
+            isEditingPins = false
+            editBtn.title = "Edit"
+        }
     }
     
     // add array of pins to the map view

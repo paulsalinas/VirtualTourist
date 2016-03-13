@@ -47,8 +47,15 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Gmz-It-coy" secondAttribute="trailing" constant="-20" id="oYX-xG-7I7"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="fdh-3R-zgm"/>
+                    <navigationItem key="navigationItem" id="fdh-3R-zgm">
+                        <barButtonItem key="rightBarButtonItem" title="Edit" id="9Uv-gE-Nzj">
+                            <connections>
+                                <action selector="editBtnTouchUp:" destination="BYZ-38-t0r" id="I2N-RM-zH5"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="editBtn" destination="9Uv-gE-Nzj" id="5Nc-WD-P6e"/>
                         <outlet property="mapView" destination="Gmz-It-coy" id="7Oj-cS-WVe"/>
                     </connections>
                 </viewController>
