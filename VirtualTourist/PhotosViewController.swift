@@ -16,7 +16,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
-    
+    var selectedPhotos = [Photo: Photo]()
     
     let flickrClient = FlickrClient.sharedInstance()
     
@@ -26,7 +26,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         super.viewDidLoad()
         automaticallyAdjustsScrollViewInsets = false
         collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-    
+        collectionView.allowsSelection = true
+        collectionView.allowsMultipleSelection = true
         adjustFlowLayout(view.frame.size)
         
         let center =  CLLocationCoordinate2D(latitude: pin!.latitude as Double, longitude: pin!.longitude as Double)
@@ -43,9 +44,69 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         super.viewWillAppear(animated)
         collectionView!.reloadData()
     }
-
+    
+    @IBAction func newCollectionTouchUp(sender: AnyObject) {
+        
+        // invalidate all of the cache in the photos and delete them from core data
+        pin!.photos.forEach{ photo in
+            photo.image = nil
+            sharedContext.deleteObject(photo)
+        }
+        
+        pin.flickrPage = (pin.flickrPage as Int) + 1
+        saveContext()
+        self.collectionView.reloadData()
+        
+        // refetch new data
+        firstly {
+            flickrClient.getImageUrls(latitude: pin.latitude as Double, longitude: pin.longitude as Double, flickrPage: pin.flickrPage as Int)
+            }.then { imageCollection -> Void in
+                
+                // 1) persist the fetched image data
+                imageCollection.forEach { dict in
+                    _ = Photo(dictionary: dict, pin: self.pin, context: self.sharedContext)
+                    
+                }
+                self.saveContext()
+                self.collectionView.reloadData()
+        }
+        
+        
+    }
+    
+    // MARK: Collection View delegate functions
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoCollectionViewCell
+        
+        let overlay = UIView()
+        overlay.backgroundColor = UIColor.whiteColor()
+        overlay.alpha = 0.6
+        overlay.frame.size.height = cell.imageView.frame.height
+        overlay.frame.size.width = cell.imageView.frame.width
+        overlay.frame.origin.x = 0
+        overlay.frame.origin.y = 0
+        
+        cell.imageView.addSubview(overlay)
+        
+        selectedPhotos[cell.photo] = cell.photo
+        
+        print(selectedPhotos.count)
+    }
+    
+    func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoCollectionViewCell
+        
+        cell.imageView.subviews.forEach { sub in
+            sub.removeFromSuperview()
+        }
+        
+        selectedPhotos.removeValueForKey(cell.photo)
+        
+        print(selectedPhotos.count)
+    }
+    
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print(pin!.photos.count)
         return pin!.photos.count
     }
     
@@ -54,6 +115,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
         let photo = pin!.photos[indexPath.item]
         let activityOverlay = ActivityOverlay(alpha: 0.7, activityIndicatorColor: UIColor.blackColor(), overlayColor: UIColor.whiteColor())
+        
+        cell.photo = photo
         
         if (photo.image != nil) {
             cell.imageView.image = photo.image
@@ -75,35 +138,6 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         return cell
-    }
-    
-    @IBAction func newCollectionTouchUp(sender: AnyObject) {
-        
-        // invalidate all of the cache in the photos and delete them from core data
-        pin!.photos.forEach{ photo in
-            photo.image = nil
-            sharedContext.deleteObject(photo)
-        }
-        
-        pin.flickrPage = (pin.flickrPage as Int) + 1
-        saveContext()
-        self.collectionView.reloadData()
-        
-        // refetch new data
-        firstly {
-            flickrClient.getImageUrls(latitude: pin.latitude as Double, longitude: pin.longitude as Double, flickrPage: pin.flickrPage as Int)
-        }.then { imageCollection -> Void in
-                
-            // 1) persist the fetched image data
-            imageCollection.forEach { dict in
-                _ = Photo(dictionary: dict, pin: self.pin, context: self.sharedContext)
-                
-            }
-            self.saveContext()
-            self.collectionView.reloadData()
-        }
-        
-        
     }
     
     // MARK: - Core Data Convenience
