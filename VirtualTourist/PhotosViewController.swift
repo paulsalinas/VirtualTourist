@@ -16,7 +16,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
-    var selectedPhotos = [Photo: Photo]()
+    var selectedPhotos = [String: Photo]()
     
     let flickrClient = FlickrClient.sharedInstance()
     
@@ -89,9 +89,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         cell.imageView.addSubview(overlay)
         
-        selectedPhotos[cell.photo] = cell.photo
-        
-        print(selectedPhotos.count)
+        selectedPhotos[cell.photo!.imagePath! ] = cell.photo
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
@@ -101,9 +99,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             sub.removeFromSuperview()
         }
         
-        selectedPhotos.removeValueForKey(cell.photo)
-        
-        print(selectedPhotos.count)
+        selectedPhotos.removeValueForKey(cell.photo!.imagePath!)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
