@@ -326,8 +326,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             let pitch = regionDictionary["pitch"] as! CGFloat
             let heading = regionDictionary["heading"] as! CLLocationDirection
             
-            print("lat: \(latitude), lon: \(longitude), latD: \(latitudeDelta), lonD: \(longitudeDelta), alt: \(altitude), pitch:\(pitch), heading:\(heading)")
-            
             let savedCamera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitude, pitch: pitch, heading: heading)
             mapView.setCamera(savedCamera, animated: animated)
         }

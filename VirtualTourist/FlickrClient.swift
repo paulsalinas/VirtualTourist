@@ -61,7 +61,6 @@ class FlickrClient {
             NSURLSession.POST(urlString, formData: methodArguments)
         }.then { data in
             let json = JSON(data: data)
-            print(json)
             let photos = json["photos"]["photo"].arrayValue
             let urls: [[String: AnyObject]] = photos.map {
                 [
@@ -70,7 +69,6 @@ class FlickrClient {
                 ]
             }
             
-            print(urls)
             return Promise<[[String: AnyObject]]>(urls)
         }
     }
