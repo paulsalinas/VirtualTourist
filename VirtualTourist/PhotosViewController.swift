@@ -16,10 +16,9 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
+    
     var selectedPhotos = [String: Photo]()
-    
     let flickrClient = FlickrClient.sharedInstance()
-    
     var pin: Pin!
     
     override func viewDidLoad() {
@@ -48,7 +47,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBAction func newCollectionTouchUp(sender: AnyObject) {
         
         // invalidate all of the cache in the photos and delete them from core data
-        pin!.photos.forEach{ photo in
+        pin.photos.forEach{ photo in
             photo.image = nil
             sharedContext.deleteObject(photo)
         }
@@ -74,11 +73,10 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         
     }
     
-    // MARK: Collection View delegate functions
+    // MARK: Helper functions
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoCollectionViewCell
-        
+    // create overlay view to be added to photo cell
+    func createSelectionOverlay(cell: PhotoCollectionViewCell) -> UIView {
         let overlay = UIView()
         overlay.backgroundColor = UIColor.whiteColor()
         overlay.alpha = 0.6
@@ -87,8 +85,15 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         overlay.frame.origin.x = 0
         overlay.frame.origin.y = 0
         
-        cell.imageView.addSubview(overlay)
+        return overlay
+    }
+    
+    // MARK: Collection View delegate functions
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoCollectionViewCell
         
+        cell.imageView.addSubview(createSelectionOverlay(cell))
         selectedPhotos[cell.photo!.imagePath! ] = cell.photo
     }
     
@@ -103,17 +108,25 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return pin!.photos.count
+        return pin.photos.count
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PhotoCell", forIndexPath: indexPath) as! PhotoCollectionViewCell
-        let photo = pin!.photos[indexPath.item]
+        let photo = pin.photos[indexPath.item]
         let activityOverlay = ActivityOverlay(alpha: 0.7, activityIndicatorColor: UIColor.blackColor(), overlayColor: UIColor.whiteColor())
         
+        if selectedPhotos[photo.imagePath!] != nil {
+            cell.imageView.addSubview(createSelectionOverlay(cell))
+        } else if cell.imageView.subviews.count >  0 {
+            cell.imageView.subviews.forEach { sub in
+                sub.removeFromSuperview()
+            }
+        }
+
         cell.photo = photo
-        
+
         if (photo.image != nil) {
             cell.imageView.image = photo.image
         } else {
