@@ -53,12 +53,11 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             
             // we are in delete mode
             selectedPhotos.forEach { (_, photo) in
-                print(photo.imagePath)
-                photo.image = nil
                 sharedContext.deleteObject(photo)
+                
             }
-            
             saveContext()
+            
             collectionView.reloadData()
             return
         }
@@ -66,7 +65,6 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         // invalidate all of the cache in the photos and delete them from core data
         pin.photos.forEach{ photo in
-            photo.image = nil
             sharedContext.deleteObject(photo)
         }
         
@@ -116,7 +114,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoCollectionViewCell
         
         cell.imageView.addSubview(createSelectionOverlay(cell))
-        selectedPhotos[cell.photo!.imagePath! ] = cell.photo
+        selectedPhotos[cell.photo!.imagePath ] = cell.photo
         
         actionButton.setTitle(determineButtonText(), forState: .Normal)
     }
@@ -128,7 +126,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             sub.removeFromSuperview()
         }
         
-        selectedPhotos.removeValueForKey(cell.photo!.imagePath!)
+        selectedPhotos.removeValueForKey(cell.photo!.imagePath)
         actionButton.setTitle(determineButtonText(), forState: .Normal)
     }
     
@@ -142,7 +140,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         let photo = pin.photos[indexPath.item]
         let activityOverlay = ActivityOverlay(alpha: 0.7, activityIndicatorColor: UIColor.blackColor(), overlayColor: UIColor.whiteColor())
         
-        if selectedPhotos[photo.imagePath!] != nil {
+        if selectedPhotos[photo.imagePath] != nil {
             cell.imageView.addSubview(createSelectionOverlay(cell))
         } else if cell.imageView.subviews.count >  0 {
             cell.imageView.subviews.forEach { sub in
@@ -159,7 +157,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             activityOverlay.overlay(cell)
             
             firstly {
-                flickrClient.getImage(url: photo.imagePath!)
+                flickrClient.getImage(url: photo.imagePath)
             }.then { image -> Void in
                 photo.image = image
                 cell.imageView.image = image

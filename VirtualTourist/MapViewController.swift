@@ -158,7 +158,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
                 newPin.photos.forEach { photo in
                     
                     firstly {
-                        self.flickrClient.getImage(url: photo.imagePath!)
+                        self.flickrClient.getImage(url: photo.imagePath)
                     }.then { image in
                         photo.image = image
                     }.error { error in
@@ -258,7 +258,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
                     newPin.photos.forEach { photo in
                         
                         firstly {
-                            self.flickrClient.getImage(url: photo.imagePath!)
+                            self.flickrClient.getImage(url: photo.imagePath)
                             }.then { image in
                                 photo.image = image
                             }.error { error in

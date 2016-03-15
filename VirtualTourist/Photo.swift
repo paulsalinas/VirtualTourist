@@ -12,7 +12,7 @@ import CoreData
 class Photo : NSManagedObject {
     
     
-    @NSManaged var imagePath: String?
+    @NSManaged var imagePath: String
     @NSManaged var id: NSNumber
     @NSManaged var pin: Pin
     
@@ -27,7 +27,7 @@ class Photo : NSManagedObject {
         super.init(entity: entity, insertIntoManagedObjectContext: context)
         
         // Dictionary
-        imagePath = dictionary["imagePath"] as? String
+        imagePath = dictionary["imagePath"] as! String
         id = dictionary["id"] as! Int
         self.pin = pin
     }
@@ -39,7 +39,7 @@ class Photo : NSManagedObject {
         }
         
         set {
-            FlickrClient.Caches.imageCache.storeImage(newValue, withIdentifier: imagePath!)
+            FlickrClient.Caches.imageCache.storeImage(newValue, withIdentifier: imagePath)
         }
     }
 }
