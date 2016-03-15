@@ -81,7 +81,7 @@
                                     <constraint firstAttribute="height" constant="184" id="UIh-ky-IyR"/>
                                 </constraints>
                             </mapView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M6B-vd-C0c">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="M6B-vd-C0c">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="LDf-2d-b9v"/>
@@ -186,6 +186,7 @@
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="actionButton" destination="M6B-vd-C0c" id="uZf-aM-YBz"/>
                         <outlet property="collectionView" destination="hkF-il-Hx3" id="joe-mo-bXu"/>
                         <outlet property="flowLayout" destination="fhy-nN-Mxb" id="rE6-Cz-e0L"/>
                         <outlet property="mapView" destination="szD-JR-aKa" id="Spr-Ea-3Vy"/>

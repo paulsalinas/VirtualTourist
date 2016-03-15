@@ -16,6 +16,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var actionButton: UIButton!
     
     var selectedPhotos = [String: Photo]()
     let flickrClient = FlickrClient.sharedInstance()
@@ -37,6 +38,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         let annotation = MKPointAnnotation()
         annotation.coordinate = center
         mapView.addAnnotation(annotation)
+        
+        actionButton.setTitle(determineButtonText(), forState: .Normal)
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,6 +48,21 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     @IBAction func newCollectionTouchUp(sender: AnyObject) {
+        
+        if selectedPhotos.count > 0 {
+            
+            // we are in delete mode
+            selectedPhotos.forEach { (_, photo) in
+                print(photo.imagePath)
+                photo.image = nil
+                sharedContext.deleteObject(photo)
+            }
+            
+            saveContext()
+            collectionView.reloadData()
+            return
+        }
+        
         
         // invalidate all of the cache in the photos and delete them from core data
         pin.photos.forEach{ photo in
@@ -88,6 +106,10 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         return overlay
     }
     
+    func determineButtonText() -> String {
+        return selectedPhotos.count > 0 ? "Remove Selected Pictures" : "New Collection"
+    }
+    
     // MARK: Collection View delegate functions
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -95,6 +117,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         cell.imageView.addSubview(createSelectionOverlay(cell))
         selectedPhotos[cell.photo!.imagePath! ] = cell.photo
+        
+        actionButton.setTitle(determineButtonText(), forState: .Normal)
     }
     
     func collectionView(collectionView: UICollectionView, didDeselectItemAtIndexPath indexPath: NSIndexPath) {
@@ -105,6 +129,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
         
         selectedPhotos.removeValueForKey(cell.photo!.imagePath!)
+        actionButton.setTitle(determineButtonText(), forState: .Normal)
     }
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
