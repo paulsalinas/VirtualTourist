@@ -18,7 +18,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var actionButton: UIButton!
     
-    var selectedPhotos = [String: Photo]()
+    var selectedIndexPaths = [Int: NSIndexPath]()
     let flickrClient = FlickrClient.sharedInstance()
     var pin: Pin!
     
@@ -49,16 +49,21 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     @IBAction func newCollectionTouchUp(sender: AnyObject) {
         
-        if selectedPhotos.count > 0 {
+        if selectedIndexPaths.count > 0 {
             
-            // we are in delete mode
-            selectedPhotos.forEach { (_, photo) in
-                sharedContext.deleteObject(photo)
-                
+            var photosToDelete = [Photo]()
+            selectedIndexPaths.forEach { (item, indexPath) in
+                photosToDelete.append(pin.photos[item])
             }
-            saveContext()
             
-            collectionView.reloadData()
+            photosToDelete.forEach { photo in
+                sharedContext.deleteObject(photo)
+            }
+        
+            saveContext()
+            collectionView.deleteItemsAtIndexPaths(Array(selectedIndexPaths.values))
+            selectedIndexPaths.removeAll()
+            
             return
         }
         
@@ -105,7 +110,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     func determineButtonText() -> String {
-        return selectedPhotos.count > 0 ? "Remove Selected Pictures" : "New Collection"
+        return selectedIndexPaths.count > 0 ? "Remove Selected Pictures" : "New Collection"
     }
     
     // MARK: Collection View delegate functions
@@ -114,7 +119,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PhotoCollectionViewCell
         
         cell.imageView.addSubview(createSelectionOverlay(cell))
-        selectedPhotos[cell.photo!.imagePath ] = cell.photo
+        selectedIndexPaths[indexPath.item] = indexPath
         
         actionButton.setTitle(determineButtonText(), forState: .Normal)
     }
@@ -126,7 +131,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             sub.removeFromSuperview()
         }
         
-        selectedPhotos.removeValueForKey(cell.photo!.imagePath)
+        selectedIndexPaths.removeValueForKey(indexPath.item)
+        
         actionButton.setTitle(determineButtonText(), forState: .Normal)
     }
     
@@ -140,7 +146,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         let photo = pin.photos[indexPath.item]
         let activityOverlay = ActivityOverlay(alpha: 0.7, activityIndicatorColor: UIColor.blackColor(), overlayColor: UIColor.whiteColor())
         
-        if selectedPhotos[photo.imagePath] != nil {
+        if selectedIndexPaths[indexPath.item] != nil {
             cell.imageView.addSubview(createSelectionOverlay(cell))
         } else if cell.imageView.subviews.count >  0 {
             cell.imageView.subviews.forEach { sub in
