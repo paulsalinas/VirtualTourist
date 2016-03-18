@@ -154,8 +154,6 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             }
         }
 
-        cell.photo = photo
-
         if (photo.image != nil) {
             cell.imageView.image = photo.image
         } else {
