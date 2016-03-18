@@ -67,6 +67,9 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             return
         }
         
+        //disable button
+        actionButton.enabled = false
+        
         // overlay view
         let frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: collectionView.frame.width, height: collectionView.frame.height))
         let overlayView = UIView(frame: frame);
@@ -102,6 +105,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             }
             self.saveContext()
             self.collectionView.reloadData()
+            self.actionButton.enabled = true
         }
         
         
