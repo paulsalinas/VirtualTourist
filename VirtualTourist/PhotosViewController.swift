@@ -67,8 +67,21 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             return
         }
         
+        // overlay view
+        let frame = CGRect(origin: CGPoint(x: 0, y: 0), size: CGSize(width: collectionView.frame.width, height: collectionView.frame.height))
+        let overlayView = UIView(frame: frame);
+        overlayView.backgroundColor = UIColor.whiteColor()
+        collectionView.addSubview(overlayView)
         
-        // invalidate all of the cache in the photos and delete them from core data
+        UIView.animateWithDuration(2,
+            animations: { () -> Void in
+                overlayView.alpha = 0
+            },
+            completion: { (result) -> Void in
+                overlayView.removeFromSuperview()
+        })
+
+        
         pin.photos.forEach{ photo in
             sharedContext.deleteObject(photo)
         }
@@ -80,15 +93,15 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         // refetch new data
         firstly {
             flickrClient.getImageUrls(latitude: pin.latitude as Double, longitude: pin.longitude as Double, flickrPage: pin.flickrPage as Int)
-            }.then { imageCollection -> Void in
+        }.then { imageCollection -> Void in
+            
+            // 1) persist the fetched image data
+            imageCollection.forEach { dict in
+                _ = Photo(dictionary: dict, pin: self.pin, context: self.sharedContext)
                 
-                // 1) persist the fetched image data
-                imageCollection.forEach { dict in
-                    _ = Photo(dictionary: dict, pin: self.pin, context: self.sharedContext)
-                    
-                }
-                self.saveContext()
-                self.collectionView.reloadData()
+            }
+            self.saveContext()
+            self.collectionView.reloadData()
         }
         
         
