@@ -51,7 +51,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         if pin.photos.count == 0 {
-            collectionView.addSubview(createNoPicturesView(collectionView))
+            showNoPicturesView()
         }
     }
     
@@ -71,6 +71,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             saveContext()
             collectionView.deleteItemsAtIndexPaths(Array(selectedIndexPaths.values))
             selectedIndexPaths.removeAll()
+            actionButton.setTitle(determineButtonText(), forState: UIControlState.Normal)
             
             return
         }
@@ -106,6 +107,11 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             flickrClient.getImageUrls(latitude: pin.latitude as Double, longitude: pin.longitude as Double, flickrPage: pin.flickrPage as Int)
         }.then { imageCollection -> Void in
             
+            if imageCollection.count == 0 {
+                self.showNoPicturesView()
+                return
+            }
+            
             // 1) persist the fetched image data
             imageCollection.forEach { dict in
                 _ = Photo(dictionary: dict, pin: self.pin, context: self.sharedContext)
@@ -120,6 +126,10 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     // MARK: Helper functions
+    
+    func showNoPicturesView() {
+        collectionView.addSubview(createNoPicturesView(collectionView))
+    }
     
     func createNoPicturesView(view: UIView) -> UIView {
         let noPicturesView = UIView()
