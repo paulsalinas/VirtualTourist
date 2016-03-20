@@ -22,6 +22,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     let flickrClient = FlickrClient.sharedInstance()
     var pin: Pin!
     
+    // MARK - View life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
         automaticallyAdjustsScrollViewInsets = false
@@ -45,6 +46,13 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         collectionView!.reloadData()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        if pin.photos.count == 0 {
+            collectionView.addSubview(createNoPicturesView(collectionView))
+        }
     }
     
     @IBAction func newCollectionTouchUp(sender: AnyObject) {
@@ -112,6 +120,29 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     // MARK: Helper functions
+    
+    func createNoPicturesView(view: UIView) -> UIView {
+        let noPicturesView = UIView()
+        noPicturesView.backgroundColor = UIColor.whiteColor()
+        noPicturesView.alpha = 1
+        noPicturesView.frame.size.height = view.frame.height
+        noPicturesView.frame.size.width = view.frame.width
+        noPicturesView.frame.origin.x = 0
+        noPicturesView.frame.origin.y = 0
+        
+        let label = UILabel()
+        label.text = "No Pictures for this pin"
+        label.textAlignment = NSTextAlignment.Center
+        label.textColor = UIColor.blackColor()
+        label.sizeToFit()
+        label.center = CGPoint(x: (noPicturesView.frame.width / 2), y: noPicturesView.frame.height / 2)
+        noPicturesView.addSubview(label)
+        
+        print("view center = x: \(label.center.x) y: \(label.center.y)")
+        
+        return noPicturesView;
+    }
+    
     
     // create overlay view to be added to photo cell
     func createSelectionOverlay(cell: PhotoCollectionViewCell) -> UIView {
