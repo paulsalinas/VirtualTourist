@@ -60,8 +60,9 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         if selectedIndexPaths.count > 0 {
             
             var photosToDelete = [Photo]()
-            selectedIndexPaths.forEach { (item, indexPath) in
-                photosToDelete.append(pin.photos[item])
+            selectedIndexPaths.forEach { (index, indexPath) in
+                pin.photos[index].image = nil
+                photosToDelete.append(pin.photos[index])
             }
             
             photosToDelete.forEach { photo in
@@ -95,6 +96,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
 
         
         pin.photos.forEach{ photo in
+            photo.image = nil
             sharedContext.deleteObject(photo)
         }
         

@@ -236,6 +236,9 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             // delete the annotation view
             let coordinate = view.annotation!.coordinate
             let pin = fetchPin(longitude: coordinate.longitude , latitude: coordinate.latitude)!
+            pin.photos.forEach { photo in
+                photo.image = nil
+            }
             sharedContext.deleteObject(pin)
             saveContext()
         } else if (newState == MKAnnotationViewDragState.Ending && newState != MKAnnotationViewDragState.Canceling) {
