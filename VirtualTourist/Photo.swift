@@ -32,6 +32,10 @@ class Photo : NSManagedObject {
         self.pin = pin
     }
     
+    override func prepareForDeletion() {
+        image = nil
+    }
+    
     var image: UIImage? {
         
         get {

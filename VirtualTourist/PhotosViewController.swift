@@ -59,14 +59,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         
         if selectedIndexPaths.count > 0 {
             
-            var photosToDelete = [Photo]()
             selectedIndexPaths.forEach { (index, indexPath) in
-                pin.photos[index].image = nil
-                photosToDelete.append(pin.photos[index])
-            }
-            
-            photosToDelete.forEach { photo in
-                sharedContext.deleteObject(photo)
+                sharedContext.deleteObject(pin.photos[index])
             }
         
             saveContext()
@@ -94,9 +88,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
                 overlayView.removeFromSuperview()
         })
 
-        
         pin.photos.forEach{ photo in
-            photo.image = nil
             sharedContext.deleteObject(photo)
         }
         
