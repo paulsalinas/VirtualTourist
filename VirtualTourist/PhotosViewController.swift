@@ -121,6 +121,21 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     
     // MARK: Helper functions
     
+    /* adjust flow layout based on size of the screen. typically portrait vs. landscape mode*/
+    func adjustFlowLayout(size: CGSize) {
+        guard let flowLayout = flowLayout else {
+            return
+        }
+        
+        let space: CGFloat = 1.5
+        let dimension:CGFloat = size.width >= size.height ? (size.width - (5 * space)) / 7.0 :  (size.width - (2 * space)) / 3.0
+        
+        flowLayout.minimumInteritemSpacing = space
+        flowLayout.minimumLineSpacing = space
+        flowLayout.itemSize = CGSizeMake(dimension, dimension)
+    }
+    
+    
     func showNoPicturesView() {
         collectionView.addSubview(createNoPicturesView(collectionView))
     }
@@ -237,20 +252,5 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     func saveContext() {
         CoreDataStackManager.sharedInstance().saveContext()
     }
-    
-    /* adjust flow layout based on size of the screen. typically portrait vs. landscape mode*/
-    func adjustFlowLayout(size: CGSize) {
-        guard let flowLayout = flowLayout else {
-            return
-        }
-        
-        let space: CGFloat = 1.5
-        let dimension:CGFloat = size.width >= size.height ? (size.width - (5 * space)) / 7.0 :  (size.width - (2 * space)) / 3.0
-        
-        flowLayout.minimumInteritemSpacing = space
-        flowLayout.minimumLineSpacing = space
-        flowLayout.itemSize = CGSizeMake(dimension, dimension)
-    }
-
   
 }
