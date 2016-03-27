@@ -109,6 +109,19 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
         }
     }
     
+    func fetchMapRegionState() -> MapRegionState? {
+        
+        // Create the Fetch Request
+        let fetchRequest = NSFetchRequest(entityName: "MapRegionState")
+        
+        // Execute the Fetch Request
+        do {
+            return try sharedContext.executeFetchRequest(fetchRequest).first as? MapRegionState
+        } catch _ {
+            return nil
+        }
+    }
+
     func saveContext() {
         CoreDataStackManager.sharedInstance().saveContext()
     }
@@ -276,59 +289,62 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
     
     // MARK: - Save the zoom level helpers
     
-    // Here we use the same filePath strategy as the Persistent Master Detail
-    // A convenient property
-    var filePath : String {
-        let manager = NSFileManager.defaultManager()
-        let url = manager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask).first! as NSURL
-        return url.URLByAppendingPathComponent("mapRegionArchive").path!
-    }
-    
     func saveMapState() {
         
         // Place the "center" and "span" of the map into a dictionary
         // The "span" is the width and height of the map in degrees.
         // It represents the zoom level of the map.
         
-        let dictionary = [
-            "latitude" : mapView.region.center.latitude,
-            "longitude" : mapView.region.center.longitude,
-            "latitudeDelta" : mapView.region.span.latitudeDelta,
-            "longitudeDelta" : mapView.region.span.longitudeDelta,
-            "altitude": mapView.camera.altitude,
-            "pitch": mapView.camera.pitch,
-            "heading": mapView.camera.heading
-        ]
+        if let mapState = fetchMapRegionState() {
+            mapState.longitude = mapView.region.center.longitude
+            mapState.latitude = mapView.region.center.latitude
+            mapState.latitudeDelta = mapView.region.span.latitudeDelta
+            mapState.longitudeDelta = mapView.region.span.longitudeDelta
+            mapState.altitude = mapView.camera.altitude
+            mapState.pitch = mapView.camera.pitch
+            mapState.heading =  mapView.camera.heading
+            saveContext()
+            return
+        }
         
-        // Archive the dictionary into the filePath
-        NSKeyedArchiver.archiveRootObject(dictionary, toFile: filePath)
+        _ = MapRegionState(
+            longitude: mapView.region.center.longitude,
+            latitude: mapView.region.center.latitude,
+            latitudeDelta: mapView.region.span.latitudeDelta,
+            longitudeDelta: mapView.region.span.longitudeDelta,
+            altitude: mapView.camera.altitude,
+            pitch: mapView.camera.pitch,
+            heading:  mapView.camera.heading,
+            context: self.sharedContext
+        )
+        
+        saveContext()
     }
     
     func restoreMapState(animated: Bool) {
         
-        // if we can unarchive a dictionary, we will use it to set the map back to its
-        // previous center and span
-        if let regionDictionary = NSKeyedUnarchiver.unarchiveObjectWithFile(filePath) as? [String : AnyObject] {
-            
-            let longitude = regionDictionary["longitude"] as! CLLocationDegrees
-            let latitude = regionDictionary["latitude"] as! CLLocationDegrees
-            let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
-            
-            let longitudeDelta = regionDictionary["latitudeDelta"] as! CLLocationDegrees
-            let latitudeDelta = regionDictionary["longitudeDelta"] as! CLLocationDegrees
-            let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
-            
-            let savedRegion = MKCoordinateRegion(center: center, span: span)
-            
-            mapView.setRegion(savedRegion, animated: animated)
-            
-            let altitude = regionDictionary["altitude"] as! CLLocationDistance
-            let pitch = regionDictionary["pitch"] as! CGFloat
-            let heading = regionDictionary["heading"] as! CLLocationDirection
-            
-            let savedCamera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitude, pitch: pitch, heading: heading)
-            mapView.setCamera(savedCamera, animated: animated)
+        guard let mapState = fetchMapRegionState() else {
+            return
         }
+        
+        let longitude = mapState.longitude as CLLocationDegrees
+        let latitude = mapState.latitude as CLLocationDegrees
+        let center = CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+        
+        let longitudeDelta = mapState.longitudeDelta as CLLocationDegrees
+        let latitudeDelta = mapState.latitudeDelta as CLLocationDegrees
+        let span = MKCoordinateSpan(latitudeDelta: latitudeDelta, longitudeDelta: longitudeDelta)
+        
+        let savedRegion = MKCoordinateRegion(center: center, span: span)
+        
+        mapView.setRegion(savedRegion, animated: animated)
+        
+        let altitude = mapState.altitude as CLLocationDistance
+        let pitch =  mapState.pitch as CGFloat
+        let heading = mapState.heading as CLLocationDirection
+        
+        let savedCamera = MKMapCamera(lookingAtCenterCoordinate: center, fromDistance: altitude, pitch: pitch, heading: heading)
+        mapView.setCamera(savedCamera, animated: animated)
     }
 }
 

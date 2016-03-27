@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="9525" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15D21" minimumToolsVersion="Xcode 7.0">
+    <entity name="MapRegionState" representedClassName=".MapRegionState" syncable="YES">
+        <attribute name="altitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="heading" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="latitudeDelta" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitudeDelta" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="pitch" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
     <entity name="Photo" representedClassName=".Photo" syncable="YES">
         <attribute name="id" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="imagePath" optional="YES" attributeType="String" syncable="YES"/>
@@ -14,5 +23,6 @@
     <elements>
         <element name="Photo" positionX="-63" positionY="0" width="128" height="90"/>
         <element name="Pin" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="MapRegionState" positionX="-54" positionY="18" width="128" height="150"/>
     </elements>
 </model>
