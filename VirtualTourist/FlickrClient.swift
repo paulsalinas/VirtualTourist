@@ -21,8 +21,8 @@ class FlickrClient {
     let SAFE_SEARCH = "1"
     let DATA_FORMAT = "json"
     let NO_JSON_CALLBACK = "1"
-    let BOUNDING_BOX_HALF_WIDTH = 1.0
-    let BOUNDING_BOX_HALF_HEIGHT = 1.0
+    let BOUNDING_BOX_HALF_WIDTH = 0.1
+    let BOUNDING_BOX_HALF_HEIGHT = 0.1
     let LAT_MIN = -90.0
     let LAT_MAX = 90.0
     let LON_MIN = -180.0
