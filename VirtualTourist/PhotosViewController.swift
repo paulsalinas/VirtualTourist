@@ -29,8 +29,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
        
         initCollectionView()
         initMapView()
-        
         actionButton.setTitle(determineButtonText(), forState: .Normal)
+        actionButton.enabled = pin.photos.count > 0
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -45,7 +45,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         }
     }
     
-    @IBAction func newCollectionTouchUp(sender: AnyObject) {
+    @IBAction func actionBtnTouchUp(sender: AnyObject) {
         
         if selectedIndexPaths.count > 0 {
             
@@ -56,7 +56,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             saveContext()
             collectionView.deleteItemsAtIndexPaths(Array(selectedIndexPaths.values))
             selectedIndexPaths.removeAll()
-            actionButton.setTitle(determineButtonText(), forState: UIControlState.Normal)
+            actionButton.setTitle(determineButtonText(), forState: .Normal)
             
             return
         }
@@ -167,11 +167,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
         label.center = CGPoint(x: (noPicturesView.frame.width / 2), y: noPicturesView.frame.height / 2)
         noPicturesView.addSubview(label)
         
-        print("view center = x: \(label.center.x) y: \(label.center.y)")
-        
         return noPicturesView;
     }
-    
     
     // create overlay view to be added to photo cell
     func createSelectionOverlay(cell: PhotoCollectionViewCell) -> UIView {
