@@ -104,6 +104,8 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
             self.saveContext()
             self.collectionView.reloadData()
             self.actionButton.enabled = true
+        }.error { error in
+            self.alert("There was an error fetching images from Flickr")
         }
         
         
