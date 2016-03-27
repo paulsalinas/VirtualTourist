@@ -11,7 +11,7 @@ import PromiseKit
 import MapKit
 import CoreData
 
-class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, Alertable {
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -234,9 +234,7 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
                 cell.imageView.image = image
                 activityOverlay.removeOverlay()
             }.error { error in
-                
-                // TODO: handle flickr error
-                
+                self.alert("There was an error fetching an image from Flickr")
             }
         }
         

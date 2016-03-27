@@ -12,7 +12,7 @@ import CoreData
 import PromiseKit
 
 
-class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate {
+class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapViewDelegate, Alertable {
 
     @IBOutlet weak var mapView: MKMapView!
     var instructionView: UILabel!
@@ -175,12 +175,11 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
                     }.then { image in
                         photo.image = image
                     }.error { error in
-                      // TODO: handle flickr client error here
+                      self.alert("There was an error fetching an image from Flickr")
                     }
-                   
                 }
             }.error { error in
-                // TODO: handle flickr client error here
+                self.alert("There was an error fetching images from Flickr")
             }
             
             mapView.addAnnotation(annotation)

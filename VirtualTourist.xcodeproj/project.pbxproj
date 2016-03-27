@@ -32,6 +32,7 @@
 		3C75FBD71C8E6E7C00F9A1AC /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD61C8E6E7C00F9A1AC /* PhotoCollectionViewCell.swift */; };
 		3C75FBD91C8FBA1000F9A1AC /* ActivityOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD81C8FBA1000F9A1AC /* ActivityOverlay.swift */; };
 		3CE05B5B1CA867B7006CE0C1 /* MapRegionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE05B5A1CA867B7006CE0C1 /* MapRegionState.swift */; };
+		3CE05B5D1CA878EB006CE0C1 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE05B5C1CA878EB006CE0C1 /* Alertable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,6 +85,7 @@
 		3C75FBD61C8E6E7C00F9A1AC /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		3C75FBD81C8FBA1000F9A1AC /* ActivityOverlay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityOverlay.swift; sourceTree = "<group>"; };
 		3CE05B5A1CA867B7006CE0C1 /* MapRegionState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapRegionState.swift; sourceTree = "<group>"; };
+		3CE05B5C1CA878EB006CE0C1 /* Alertable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Alertable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				3C75FBD41C8E605600F9A1AC /* PhotosViewController.swift */,
 				3C75FBD61C8E6E7C00F9A1AC /* PhotoCollectionViewCell.swift */,
 				3C75FBD81C8FBA1000F9A1AC /* ActivityOverlay.swift */,
+				3CE05B5C1CA878EB006CE0C1 /* Alertable.swift */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CE05B5D1CA878EB006CE0C1 /* Alertable.swift in Sources */,
 				3C75FBC31C8CE85600F9A1AC /* NSNotificationCenter+Promise.swift in Sources */,
 				3CE05B5B1CA867B7006CE0C1 /* MapRegionState.swift in Sources */,
 				3C75FBC41C8CE85600F9A1AC /* NSObject+Promise.swift in Sources */,
