@@ -174,7 +174,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
         }
     }
     
-    func handleSingeTap(recognizer: UITapGestureRecognizer) {
+    func handleSingleTap(recognizer: UITapGestureRecognizer) {
         guard let annotation = (recognizer.view as! MKPinAnnotationView).annotation else {
             return
         }
@@ -211,7 +211,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             pinView!.animatesDrop = true
             pinView!.draggable = true
             
-            let longPressGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MapViewController.handleSingeTap(_:)))
+            let longPressGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MapViewController.handleSingleTap(_:)))
             longPressGestureRecognizer.numberOfTapsRequired = 1
             longPressGestureRecognizer.delegate = self
             
