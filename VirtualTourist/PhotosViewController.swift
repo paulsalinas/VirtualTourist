@@ -26,19 +26,9 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     override func viewDidLoad() {
         super.viewDidLoad()
         automaticallyAdjustsScrollViewInsets = false
-        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        collectionView.allowsSelection = true
-        collectionView.allowsMultipleSelection = true
-        adjustFlowLayout(view.frame.size)
-        
-        let center =  CLLocationCoordinate2D(latitude: pin!.latitude as Double, longitude: pin!.longitude as Double)
-        mapView.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
-        mapView.zoomEnabled = false
-        mapView.scrollEnabled = false
-        
-        let annotation = MKPointAnnotation()
-        annotation.coordinate = center
-        mapView.addAnnotation(annotation)
+       
+        initCollectionView()
+        initMapView()
         
         actionButton.setTitle(determineButtonText(), forState: .Normal)
     }
@@ -120,6 +110,24 @@ class PhotosViewController: UIViewController, UICollectionViewDelegate, UICollec
     }
     
     // MARK: Helper functions
+    
+    func initCollectionView() {
+        collectionView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        collectionView.allowsSelection = true
+        collectionView.allowsMultipleSelection = true
+        adjustFlowLayout(view.frame.size)
+    }
+    
+    func initMapView() {
+        let center =  CLLocationCoordinate2D(latitude: pin!.latitude as Double, longitude: pin!.longitude as Double)
+        mapView.region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5))
+        mapView.zoomEnabled = false
+        mapView.scrollEnabled = false
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = center
+        mapView.addAnnotation(annotation)
+    }
     
     /* adjust flow layout based on size of the screen. typically portrait vs. landscape mode*/
     func adjustFlowLayout(size: CGSize) {

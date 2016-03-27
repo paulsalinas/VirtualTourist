@@ -24,30 +24,14 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /* Configure tap recognizer */
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.handleLongTouch(_:)))
-        longPressGestureRecognizer.minimumPressDuration = 1
-        longPressGestureRecognizer.delegate = self
-        mapView.addGestureRecognizer(longPressGestureRecognizer)
+        configureTapGestures()
         mapView.showsCompass = true
-        
         mapView.delegate = self
-        
         restoreMapState(false)
-        
         addPinsToMap(fetchAllPins())
+        initInstructionView()
         
-        instructionView = UILabel()
-        instructionView.backgroundColor = UIColor.redColor()
-        view.addSubview(instructionView)
-        instructionView.frame.origin.y = view.frame.height
-        instructionView.frame.origin.x = 0
-        instructionView.frame.size.width = view.frame.width
-        instructionView.frame.size.height = view.frame.height / 6
-        instructionView.text = "Tap Pins to Delete"
-        instructionView.textAlignment = NSTextAlignment.Center
-        instructionView.textColor = UIColor.whiteColor()
-        
+        // initial state
         isEditingPins = false
     }
     
@@ -74,6 +58,27 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             isEditingPins = false
             editBtn.title = "Edit"
         }
+    }
+    
+    // MARK: - Helper Functions 
+    func configureTapGestures() {
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.handleLongTouch(_:)))
+        longPressGestureRecognizer.minimumPressDuration = 1
+        longPressGestureRecognizer.delegate = self
+        mapView.addGestureRecognizer(longPressGestureRecognizer)
+    }
+    
+    func initInstructionView() {
+        instructionView = UILabel()
+        instructionView.backgroundColor = UIColor.redColor()
+        view.addSubview(instructionView)
+        instructionView.frame.origin.y = view.frame.height
+        instructionView.frame.origin.x = 0
+        instructionView.frame.size.width = view.frame.width
+        instructionView.frame.size.height = view.frame.height / 6
+        instructionView.text = "Tap Pins to Delete"
+        instructionView.textAlignment = NSTextAlignment.Center
+        instructionView.textColor = UIColor.whiteColor()
     }
     
     // add array of pins to the map view
