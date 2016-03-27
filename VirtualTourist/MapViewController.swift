@@ -25,7 +25,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
         super.viewDidLoad()
         
         /* Configure tap recognizer */
-        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: "handleLongTouch:")
+        let longPressGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(MapViewController.handleLongTouch(_:)))
         longPressGestureRecognizer.minimumPressDuration = 1
         longPressGestureRecognizer.delegate = self
         mapView.addGestureRecognizer(longPressGestureRecognizer)
@@ -211,7 +211,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             pinView!.animatesDrop = true
             pinView!.draggable = true
             
-            let longPressGestureRecognizer = UITapGestureRecognizer(target: self, action: "handleSingeTap:")
+            let longPressGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MapViewController.handleSingeTap(_:)))
             longPressGestureRecognizer.numberOfTapsRequired = 1
             longPressGestureRecognizer.delegate = self
             
