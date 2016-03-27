@@ -262,29 +262,29 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             let newPin = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
             firstly {
                 flickrClient.getImageUrls(latitude: coordinate.latitude, longitude: coordinate.longitude)
-                }.then { imageCollection -> Void in
+            }.then { imageCollection -> Void in
+                
+                // 1) persist the fetched image data
+                imageCollection.forEach { dict in
+                    _ = Photo(dictionary: dict, pin: newPin, context: self.sharedContext)
                     
-                    // 1) persist the fetched image data
-                    imageCollection.forEach { dict in
-                        _ = Photo(dictionary: dict, pin: newPin, context: self.sharedContext)
-                        
-                    }
-                    self.saveContext()
+                }
+                self.saveContext()
+                
+                // 2) fetch and store each image
+                newPin.photos.forEach { photo in
                     
-                    // 2) fetch and store each image
-                    newPin.photos.forEach { photo in
-                        
-                        firstly {
-                            self.flickrClient.getImage(url: photo.imagePath)
-                            }.then { image in
-                                photo.image = image
-                            }.error { error in
-                                // TODO: handle flickr client error here
-                        }
-                        
+                    firstly {
+                        self.flickrClient.getImage(url: photo.imagePath)
+                    }.then { image in
+                        photo.image = image
+                    }.error { error in
+                        self.alert("There was an error fetching an image from Flickr")
                     }
-                }.error { error in
-                    // TODO: handle flickr client error here
+                    
+                }
+            }.error { error in
+                self.alert("There was an error fetching images from Flickr")
             }
             
             saveContext()
