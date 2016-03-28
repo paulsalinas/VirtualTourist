@@ -229,7 +229,6 @@
 				3C5052FB1C82679600276B26 /* Sources */,
 				3C5052FC1C82679600276B26 /* Frameworks */,
 				3C5052FD1C82679600276B26 /* Resources */,
-				3C75FBB11C8CE65000F9A1AC /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -345,25 +344,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3C75FBB11C8CE65000F9A1AC /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/PromiseKit.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/OMGHTTPURLRQ.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftyJSON.framework",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3C5052FB1C82679600276B26 /* Sources */ = {
