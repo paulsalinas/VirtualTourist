@@ -18,6 +18,7 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
     var instructionView: UILabel!
     var isEditingPins: Bool!
     @IBOutlet weak var editBtn: UIBarButtonItem!
+    var activePin: MKPointAnnotation?
     
     let flickrClient = FlickrClient.sharedInstance()
     
@@ -143,7 +144,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             return nil
         }
     }
-    
 
     // MARK: - Gesture Handler Functions
     
@@ -152,42 +152,48 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
             return
         }
         
-        if recognizer.state == UIGestureRecognizerState.Began {
-            
-            let annotation = MKPointAnnotation()
-            let coordinate = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
-            let newPin = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
-            saveContext()
-            
-            annotation.coordinate = coordinate
-            
-            firstly {
-                flickrClient.getImageUrls(latitude: coordinate.latitude, longitude: coordinate.longitude)
-            }.then { imageCollection -> Void in
-                
-                // 1) persist the fetched image data
-                imageCollection.forEach { dict in
-                    _ = Photo(dictionary: dict, pin: newPin, context: self.sharedContext)
+        // handle dragging pins on drop
+        switch(recognizer.state) {
+            case .Began:
+                let annotation = MKPointAnnotation()
+                let coordinate = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
+                annotation.coordinate = coordinate
+                mapView.addAnnotation(annotation)
+                activePin = annotation
+            case .Changed:
+                let newCoordinates = mapView.convertPoint(recognizer.locationInView(mapView), toCoordinateFromView: mapView)
+                activePin!.coordinate = newCoordinates
+            case .Ended:
+                let coordinate = activePin!.coordinate
+                let newPin = Pin(longitude: coordinate.longitude, latitude: coordinate.latitude, context: sharedContext)
+                saveContext()
+                firstly {
+                    flickrClient.getImageUrls(latitude: coordinate.latitude, longitude: coordinate.longitude)
+                }.then { imageCollection -> Void in
                     
-                }
-                self.saveContext()
-                
-                // 2) fetch and store each image
-                newPin.photos.forEach { photo in
-                    
-                    firstly {
-                        self.flickrClient.getImage(url: photo.imagePath)
-                    }.then { image in
-                        photo.image = image
-                    }.error { error in
-                      self.alert("There was an error fetching an image from Flickr")
+                    // 1) persist the fetched image data
+                    imageCollection.forEach { dict in
+                        _ = Photo(dictionary: dict, pin: newPin, context: self.sharedContext)
+                        
                     }
+                    self.saveContext()
+                    
+                    // 2) fetch and store each image
+                    newPin.photos.forEach { photo in
+                        
+                        firstly {
+                            self.flickrClient.getImage(url: photo.imagePath)
+                            }.then { image in
+                                photo.image = image
+                            }.error { error in
+                                self.alert("There was an error fetching an image from Flickr")
+                        }
+                    }
+                }.error { error in
+                    self.alert("There was an error fetching images from Flickr")
                 }
-            }.error { error in
-                self.alert("There was an error fetching images from Flickr")
-            }
-            
-            mapView.addAnnotation(annotation)
+            default:
+                break
         }
     }
     
@@ -210,7 +216,6 @@ class MapViewController: UIViewController, UIGestureRecognizerDelegate, MKMapVie
         let controller = storyboard?.instantiateViewControllerWithIdentifier("PhotosViewController") as! PhotosViewController
         controller.pin = pin
         navigationController?.pushViewController(controller, animated: true)
-        
     }
     
     // MARK: - Map Delegate Functions
