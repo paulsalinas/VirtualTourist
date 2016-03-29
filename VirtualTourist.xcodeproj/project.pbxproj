@@ -33,6 +33,9 @@
 		3C75FBD91C8FBA1000F9A1AC /* ActivityOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C75FBD81C8FBA1000F9A1AC /* ActivityOverlay.swift */; };
 		3CE05B5B1CA867B7006CE0C1 /* MapRegionState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE05B5A1CA867B7006CE0C1 /* MapRegionState.swift */; };
 		3CE05B5D1CA878EB006CE0C1 /* Alertable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE05B5C1CA878EB006CE0C1 /* Alertable.swift */; };
+		3CEC0D0F1CAB40B2000FB781 /* OMGHTTPURLRQ.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3C75FBAD1C8CE52C00F9A1AC /* OMGHTTPURLRQ.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3CEC0D101CAB40BA000FB781 /* SwiftyJSON.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3C75FBCC1C8D279B00F9A1AC /* SwiftyJSON.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3CEC0D111CAB40BF000FB781 /* PromiseKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 3C75FBAE1C8CE52C00F9A1AC /* PromiseKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,21 @@
 			remoteInfo = VirtualTourist;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3CEC0D0E1CAB4078000FB781 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3CEC0D111CAB40BF000FB781 /* PromiseKit.framework in CopyFiles */,
+				3CEC0D101CAB40BA000FB781 /* SwiftyJSON.framework in CopyFiles */,
+				3CEC0D0F1CAB40B2000FB781 /* OMGHTTPURLRQ.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3C4128D31C869260006F4ECD /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
@@ -229,6 +247,7 @@
 				3C5052FB1C82679600276B26 /* Sources */,
 				3C5052FC1C82679600276B26 /* Frameworks */,
 				3C5052FD1C82679600276B26 /* Resources */,
+				3CEC0D0E1CAB4078000FB781 /* CopyFiles */,
 			);
 			buildRules = (
 			);
